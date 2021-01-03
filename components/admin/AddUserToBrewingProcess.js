@@ -232,7 +232,7 @@ class AddUserToBrewingProcess extends Component {
                     className={classes.button}
                     disabled={loading}
                   >
-                    Create
+                    Add
                   </Button>
                 </Paper>
               </DialogContent>
