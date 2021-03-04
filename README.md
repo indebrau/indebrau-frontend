@@ -2,7 +2,7 @@
 
 ## Development
 
-1. Prerequisites: Node v12.19.0
+1. Prerequisites: Node v14.16.0
 
 2. Rename '.env.sample' to '.env' and adjust values
 
