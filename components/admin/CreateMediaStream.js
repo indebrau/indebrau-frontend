@@ -75,7 +75,7 @@ class CreateMediaStream extends Component {
     // mutation variables
     mediaFilesName: '',
     overwrite: false,
-    updateFrequency: '',
+    updateFrequency: '30',
     brewingProcessId: '',
     brewingStepName: STEPS[0],
   };
@@ -88,7 +88,7 @@ class CreateMediaStream extends Component {
       // mutation variables
       mediaFilesName: '',
       overwrite: false,
-      updateFrequency: '',
+      updateFrequency: '30',
       brewingProcessId: '',
       brewingStepName: STEPS[0],
     });

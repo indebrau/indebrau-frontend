@@ -26,6 +26,7 @@ import {
   ALL_GRAPHS_QUERY,
   ALL_BREWING_PROCESSES_QUERY,
   CREATE_GRAPH_MUTATION,
+  SENSOR_QUERY,
 } from '../../lib/queriesAndMutations';
 
 const styles = (theme) => ({
@@ -66,7 +67,7 @@ class CreateGraph extends Component {
 
     // mutation variables
     sensorTopic: '',
-    updateFrequency: '',
+    updateFrequency: '30',
     brewingProcessId: '',
     brewingStepName: STEPS[0],
   };
@@ -79,7 +80,7 @@ class CreateGraph extends Component {
 
       // mutation variables
       sensorTopic: '',
-      updateFrequency: '',
+      updateFrequency: '30',
       brewingProcessId: '',
       brewingStepName: STEPS[0],
     });
@@ -95,6 +96,10 @@ class CreateGraph extends Component {
 
   handleNewBrewingProcessId = (event) => {
     this.setState({ brewingProcessId: event.target.value });
+  };
+
+  handleNewSensorTopic = (event) => {
+    this.setState({ sensorTopic: event.target.value });
   };
 
   handleNewBrewingStepName = (event) => {
@@ -136,26 +141,38 @@ class CreateGraph extends Component {
                   <Paper className={classes.paper}>
                     <Grid container spacing={8}>
                       <Grid item xs={12}>
-                        <TextField
-                          required
-                          id="sensorTopic"
-                          name="sensorTopic"
-                          label="Sensor Topic Name"
-                          value={this.state.sensorTopic}
-                          onChange={this.saveToState}
-                          fullWidth
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          id="updateFrequency"
-                          name="updateFrequency"
-                          label="Update Frequency"
-                          value={this.state.updateFrequency}
-                          onChange={this.saveToState}
-                          fullWidth
-                        />
+                        <Query query={SENSOR_QUERY}>
+                          {({ data, error, loading }) => {
+                            if (loading) return <Loading />;
+                            if (error) return <Error error={error} />;
+                            let sensors = [''];
+                            if (data) {
+                              sensors = data.sensors;
+                            }
+                            return (
+                              <FormControl className={classes.formControl}>
+                                <InputLabel htmlFor="select-sensor">
+                                  Sensor
+                                </InputLabel>
+                                <Select
+                                  onChange={this.handleNewSensorTopic}
+                                  value={this.state.sensorTopic}
+                                  input={<Input id="select-sensor" />}
+                                  displayEmpty={true}
+                                >
+                                  {sensors.map((sensor) => (
+                                    <MenuItem
+                                      key={sensor.topic}
+                                      value={sensor.topic}
+                                    >
+                                      {sensor.name}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            );
+                          }}
+                        </Query>
                       </Grid>
                       <Grid item xs={12}>
                         <Query query={ALL_BREWING_PROCESSES_QUERY}>
@@ -191,23 +208,36 @@ class CreateGraph extends Component {
                           }}
                         </Query>
                       </Grid>
+                      <Grid item xs={12}>
+                        <FormControl className={classes.formControl}>
+                          <InputLabel htmlFor="select-brewingStepName">
+                            Brewing Step
+                          </InputLabel>
+                          <Select
+                            onChange={this.handleNewBrewingStepName}
+                            value={this.state.brewingStepName}
+                            input={<Input id="select-brewingStepName" />}
+                          >
+                            {STEPS.map((step) => (
+                              <MenuItem key={step} value={step}>
+                                {step}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          required
+                          id="updateFrequency"
+                          name="updateFrequency"
+                          label="Update Frequency"
+                          value={this.state.updateFrequency}
+                          onChange={this.saveToState}
+                          fullWidth
+                        />
+                      </Grid>
                     </Grid>
-                    <FormControl className={classes.formControl}>
-                      <InputLabel htmlFor="select-brewingStepName">
-                        Brewing Step
-                      </InputLabel>
-                      <Select
-                        onChange={this.handleNewBrewingStepName}
-                        value={this.state.brewingStepName}
-                        input={<Input id="select-brewingStepName" />}
-                      >
-                        {STEPS.map((step) => (
-                          <MenuItem key={step} value={step}>
-                            {step}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
                     <div className={classes.buttons}>
                       <Button
                         onClick={this.handleClose}

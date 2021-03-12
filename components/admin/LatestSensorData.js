@@ -44,7 +44,7 @@ class LatestSensorValues extends Component {
               if (error) return <Error error={error} />;
               if (data) {
                 const sensorDataTable = data.sensors.map((sensor) => (
-                  <TableRow key={sensor.tpic} hover>
+                  <TableRow key={sensor.topic} hover>
                     <TableCell align="center">{sensor.name}</TableCell>
                     <TableCell align="center">
                       {renderDate(sensor.latestTimeStamp)}

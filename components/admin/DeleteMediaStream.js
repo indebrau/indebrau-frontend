@@ -74,7 +74,7 @@ class DeleteMediaStream extends Component {
                     this.setState({ queryError: null });
                     await deleteMediaStream({
                       variables: {
-                        mediaStreamId: this.props.id,
+                        id: this.props.id,
                       },
                     }).catch((e) => {
                       this.setState({ queryError: e });

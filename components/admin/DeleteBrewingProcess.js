@@ -78,7 +78,7 @@ class DeleteBrewingProcess extends Component {
                     this.setState({ queryError: null });
                     await deleteBrewingProcess({
                       variables: {
-                        brewingProcessId: this.props.brewingProcessId,
+                        id: this.props.brewingProcessId,
                       },
                     }).catch((e) => {
                       this.setState({ queryError: e });
