@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import {
   Paper,
-  Typography,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
-  withStyles
+  withStyles,
 } from '@material-ui/core';
-import { LATEST_SENSOR_DATA_QUERY } from '../../lib/queriesAndMutations';
+import { SENSOR_QUERY } from '../../lib/queriesAndMutations';
 import { renderDate, parseSensorValue } from '../../lib/utils.js';
 import Error from '../Error';
 
@@ -21,8 +20,8 @@ const styles = (theme) => ({
     textAlign: 'center',
     overflowX: 'auto',
     padding: theme.spacing(1),
-    maxHeight: '100%'
-  }
+    maxHeight: '100%',
+  },
 });
 
 class LatestSensorValues extends Component {
@@ -31,37 +30,30 @@ class LatestSensorValues extends Component {
 
     return (
       <Paper className={classes.root}>
-        <Typography variant='subtitle1' gutterBottom>
-          Latest Sensor Values
-        </Typography>
-        <Table size='small'>
+        <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell align='center'>Sensor Name</TableCell>
-              <TableCell align='center'>Time Stamp</TableCell>
-              <TableCell align='center'>Value</TableCell>
+              <TableCell align="center">Sensor Name</TableCell>
+              <TableCell align="center">Time Stamp</TableCell>
+              <TableCell align="center">Value</TableCell>
             </TableRow>
           </TableHead>
-          <Query query={LATEST_SENSOR_DATA_QUERY} pollInterval={2000}>
+          <Query query={SENSOR_QUERY} pollInterval={2000}>
             {({ data, error, loading }) => {
               if (loading) return <></>;
               if (error) return <Error error={error} />;
               if (data) {
-                const sensorDataTable = data.latestSensorData.map(
-                  (sensorData) => (
-                    <TableRow key={sensorData.sensorName} hover>
-                      <TableCell align='center'>
-                        {sensorData.sensorName.replace(/[/]/g, ' ')}
-                      </TableCell>
-                      <TableCell align='center'>
-                        {renderDate(sensorData.sensorTimeStamp)}
-                      </TableCell>
-                      <TableCell align='center'>
-                        {parseSensorValue(sensorData.sensorValue)}
-                      </TableCell>
-                    </TableRow>
-                  )
-                );
+                const sensorDataTable = data.sensors.map((sensor) => (
+                  <TableRow key={sensor.tpic} hover>
+                    <TableCell align="center">{sensor.name}</TableCell>
+                    <TableCell align="center">
+                      {renderDate(sensor.latestTimeStamp)}
+                    </TableCell>
+                    <TableCell align="center">
+                      {parseSensorValue(sensor.latestValue)}
+                    </TableCell>
+                  </TableRow>
+                ));
                 return <TableBody>{sensorDataTable}</TableBody>;
               }
             }}
@@ -73,7 +65,7 @@ class LatestSensorValues extends Component {
 }
 
 LatestSensorValues.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(LatestSensorValues);

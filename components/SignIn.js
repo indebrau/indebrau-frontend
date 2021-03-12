@@ -10,12 +10,12 @@ import {
   InputLabel,
   Paper,
   Typography,
-  withStyles
+  withStyles,
 } from '@material-ui/core';
 import Error from './Error';
 import {
   CURRENT_USER_QUERY,
-  SIGNIN_MUTATION
+  SIGNIN_MUTATION,
 } from '../lib/queriesAndMutations';
 import Link from './Link';
 
@@ -28,33 +28,35 @@ const styles = (theme) => ({
     [theme.breakpoints.up(400 + theme.spacing(3) * 2)]: {
       width: 400,
       marginLeft: 'auto',
-      marginRight: 'auto'
-    }
+      marginRight: 'auto',
+    },
   },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`
+    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(
+      3
+    )}px`,
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   button: {
-    marginTop: theme.spacing(3)
-  }
+    marginTop: theme.spacing(3),
+  },
 });
 
 class SignIn extends Component {
   state = {
     password: '',
-    email: ''
+    email: '',
   };
   saveToState = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -76,56 +78,56 @@ class SignIn extends Component {
               <Avatar className={classes.avatar}>
                 <LockOutlinedIcon />
               </Avatar>
-              <Typography component='h1' variant='h5'>
+              <Typography component="h1" variant="h5">
                 Sign in
               </Typography>
               <form
                 className={classes.form}
-                method='post'
+                method="post"
                 onSubmit={async (e) => {
                   e.preventDefault();
                   await signin().catch(() => {});
                   this.setState({ email: '', password: '' });
                 }}
               >
-                <FormControl margin='normal' required fullWidth>
-                  <InputLabel htmlFor='email'>Email Address</InputLabel>
+                <FormControl margin="normal" required fullWidth>
+                  <InputLabel htmlFor="email">Email Address</InputLabel>
                   <Input
-                    id='email'
-                    name='email'
-                    autoComplete='email'
+                    id="email"
+                    name="email"
+                    autoComplete="email"
                     value={this.state.email}
                     onChange={this.saveToState}
                     autoFocus
                   />
                 </FormControl>
-                <FormControl margin='normal' required fullWidth>
-                  <InputLabel htmlFor='password'>Password</InputLabel>
+                <FormControl margin="normal" required fullWidth>
+                  <InputLabel htmlFor="password">Password</InputLabel>
                   <Input
-                    name='password'
-                    type='password'
-                    id='password'
-                    autoComplete='current-password'
+                    name="password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
                     value={this.state.password}
                     onChange={this.saveToState}
                   />
                 </FormControl>
                 <Button
-                  type='submit'
+                  type="submit"
                   fullWidth
-                  variant='contained'
-                  color='primary'
+                  variant="contained"
+                  color="primary"
                   disabled={loading}
                   className={classes.button}
                 >
                   Sign in
                 </Button>
-                <Link href='/signup'>
+                <Link href="/signup">
                   <Button
-                    type='submit'
+                    type="submit"
                     fullWidth
-                    variant='contained'
-                    color='secondary'
+                    variant="contained"
+                    color="secondary"
                     disabled={loading}
                     className={classes.button}
                   >
@@ -142,7 +144,7 @@ class SignIn extends Component {
 }
 
 SignIn.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(SignIn);

@@ -4,7 +4,14 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended'],
+  settings: {
+    react: { pragma: 'React', version: 'detect' },
+  },
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:prettier/recommended',
+  ],
   parser: 'babel-eslint',
   globals: {
     Atomics: 'readonly',
@@ -16,10 +23,8 @@ module.exports = {
     },
     ecmaVersion: 2018,
   },
-  plugins: ['react'],
+  plugins: ['react', 'prettier'],
   rules: {
-    indent: ['error', 2],
-    quotes: ['error', 'single'],
     semi: ['error', 'always'],
     'react/react-in-jsx-scope': 'off',
   },

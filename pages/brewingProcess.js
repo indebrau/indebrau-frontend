@@ -8,7 +8,7 @@ import BrewingProcess from '../components/BrewingProcess';
 class BrewingProcessPage extends Component {
   static async getInitialProps({ query }) {
     return {
-      brewingProcessId: query.brewingProcessId
+      brewingProcessId: query.brewingProcessId,
     };
   }
 
@@ -50,7 +50,7 @@ class BrewingProcessPage extends Component {
 }
 
 BrewingProcessPage.propTypes = {
-  brewingProcessId: PropTypes.string
+  brewingProcessId: PropTypes.string,
 };
 
 export default BrewingProcessPage;

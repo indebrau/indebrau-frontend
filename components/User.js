@@ -14,8 +14,8 @@ const styles = (theme) => ({
     overflowX: 'auto',
     textAlign: 'center',
     padding: theme.spacing(2),
-    maxHeight: '100%'
-  }
+    maxHeight: '100%',
+  },
 });
 
 const CurrentUser = (props) => (
@@ -25,7 +25,7 @@ const CurrentUser = (props) => (
 );
 
 CurrentUser.propTypes = {
-  children: PropTypes.func.isRequired
+  children: PropTypes.func.isRequired,
 };
 
 class User extends Component {
@@ -41,11 +41,11 @@ class User extends Component {
                 {!me && <SignIn />}
                 {me && (
                   <Paper className={classes.root}>
-                    <Typography variant='h5' gutterBottom>
-                        Hello {me.name}
+                    <Typography variant="h5" gutterBottom>
+                      Hello {me.name}
                     </Typography>
-                    <Typography variant='subtitle1' gutterBottom>
-                        Your Brewing Processes
+                    <Typography variant="subtitle1" gutterBottom>
+                      Your Brewing Processes
                     </Typography>
                     <BrewingProcessTable
                       brewingProcesses={me.participatingBrewingProcesses}
@@ -53,12 +53,12 @@ class User extends Component {
                     />
                     <br />
                     {me && me.permissions.includes('ADMIN') && (
-                      <Link href='/adminDashboard'>
+                      <Link href="/adminDashboard">
                         <Button>Go to Admin Area</Button>
                       </Link>
                     )}
                     <br />
-                    <Link href='/'>
+                    <Link href="/">
                       <SignOut />
                     </Link>
                   </Paper>
@@ -73,7 +73,7 @@ class User extends Component {
 }
 
 User.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(User);

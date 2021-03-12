@@ -8,7 +8,8 @@
     "deploy": "npm run build && npm run start",
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint --fix . && echo 'Lint complete.'"
   },
   "engines": {
     "node": "~12.19.0",
@@ -22,7 +23,7 @@
     "apollo-client": "2.6.10",
     "dotenv": "8.2.0",
     "graphql": "15.5.0",
-    "next": "10.0.7",
+    "next": "10.0.8",
     "next-with-apollo": "5.1.1",
     "nprogress": "0.2.0",
     "prop-types": "15.7.2",
@@ -36,7 +37,11 @@
     "eslint": "7.21.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsx-a11y": "6.4.1",
-    "eslint-plugin-react": "7.22.0"
+    "eslint-plugin-react": "7.22.0",
+    "eslint-plugin-react-hooks": "4.2.0",
+    "eslint-config-prettier": "8.1.0",
+    "eslint-plugin-prettier": "3.3.1",
+    "prettier": "2.2.1"
   },
   "author": "Peter de Lange",
   "license": "ISC"

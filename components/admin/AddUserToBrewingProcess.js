@@ -13,7 +13,7 @@ import {
   Select,
   DialogTitle,
   withStyles,
-  MenuItem
+  MenuItem,
 } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import { Query, Mutation } from 'react-apollo';
@@ -44,14 +44,14 @@ const styles = (theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
-    maxWidth: 300
+    maxWidth: 300,
   },
   chips: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   chip: {
-    margin: theme.spacing(1) / 4
+    margin: theme.spacing(1) / 4,
   },
   button: {
     marginTop: theme.spacing(3),
@@ -62,16 +62,15 @@ const styles = (theme) => ({
   },
 });
 
-
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250
-    }
-  }
+      width: 250,
+    },
+  },
 };
 
 class AddUserToBrewingProcess extends Component {
@@ -80,7 +79,7 @@ class AddUserToBrewingProcess extends Component {
     formatting: 'notyetdone', // check for formatting
     queryStatus: 'notyetdone', // did query pass?
     participatingUserIds: [], // participating user ids (taken from props on open)
-    newUsers: [] // users to be added to the process (queried)
+    newUsers: [], // users to be added to the process (queried)
   };
 
   saveToState = (e) => {
@@ -89,9 +88,9 @@ class AddUserToBrewingProcess extends Component {
 
   handleClickOpen = () => {
     let ids = [];
-    {this.props.participatingUsers.map((user) => (
-      ids.push(user.id)
-    ));}
+    {
+      this.props.participatingUsers.map((user) => ids.push(user.id));
+    }
     this.setState({ participatingUserIds: ids });
     this.setState({ open: true });
   };
@@ -102,7 +101,7 @@ class AddUserToBrewingProcess extends Component {
       formatting: 'notyetdone',
       queryStatus: 'notyetdone',
       participatingUserIds: [],
-      newUsers: []
+      newUsers: [],
     });
   };
 
@@ -150,15 +149,19 @@ class AddUserToBrewingProcess extends Component {
                         if (error) return <Error error={error} />;
                         let users = [];
                         if (data) {
-                          data.users.map(user => {
-                            if(!this.state.participatingUserIds.includes(user.id)){
+                          data.users.map((user) => {
+                            if (
+                              !this.state.participatingUserIds.includes(user.id)
+                            ) {
                               users.push(user);
                             }
                           });
                         }
                         return (
                           <FormControl className={classes.formControl}>
-                            <InputLabel htmlFor='select-users'>Users</InputLabel>
+                            <InputLabel htmlFor="select-users">
+                              Users
+                            </InputLabel>
                             <Select
                               multiple
                               onChange={this.handleNewUserIds}
@@ -177,13 +180,14 @@ class AddUserToBrewingProcess extends Component {
                               MenuProps={MenuProps}
                             >
                               {users.map((user) => (
-                                <MenuItem key={user.id} value={user}>{user.id}: {user.email}</MenuItem>
+                                <MenuItem key={user.id} value={user}>
+                                  {user.id}: {user.email}
+                                </MenuItem>
                               ))}
                             </Select>
                           </FormControl>
                         );
-                      }
-                      }
+                      }}
                     </Query>
                   </Grid>
                   <Button
@@ -200,7 +204,7 @@ class AddUserToBrewingProcess extends Component {
                     onClick={async () => {
                       // prepare variables
                       let userIds = [];
-                      this.state.newUsers.map( user =>{
+                      this.state.newUsers.map((user) => {
                         userIds.push(user.id);
                       });
                       let addUsersToBrewingProcessVars = {

@@ -18,7 +18,7 @@ const NextComposed = forwardRef((props, ref) => {
 NextComposed.propTypes = {
   as: PropTypes.string,
   href: PropTypes.string,
-  prefetch: PropTypes.bool
+  prefetch: PropTypes.bool,
 };
 NextComposed.displayName = 'NextComposed'; // ESLint cries otherwise
 
@@ -33,7 +33,7 @@ const Link = forwardRef((props, ref) => {
   } = props;
 
   const className = clsx(classNameProps, {
-    [activeClassName]: router.pathname === props.href && activeClassName
+    [activeClassName]: router.pathname === props.href && activeClassName,
   });
 
   if (naked) {
@@ -46,7 +46,7 @@ const Link = forwardRef((props, ref) => {
       className={className}
       ref={ref}
       style={{ textDecoration: 'none' }}
-      color= 'inherit'
+      color="inherit"
       {...other}
     />
   );
@@ -61,12 +61,12 @@ Link.propTypes = {
   onClick: PropTypes.func,
   prefetch: PropTypes.bool,
   router: PropTypes.shape({
-    pathname: PropTypes.string.isRequired
-  }).isRequired
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 Link.defaultProps = {
-  activeClassName: 'active'
+  activeClassName: 'active',
 };
 
 export default withRouter(Link);

@@ -10,7 +10,7 @@ import {
   DialogTitle,
   Typography,
   Paper,
-  withStyles
+  withStyles,
 } from '@material-ui/core';
 import * as properties from '../lib/ComponentProperties';
 
@@ -18,43 +18,43 @@ const styles = (theme) => ({
   root: {
     textAlign: 'center',
     padding: theme.spacing(2),
-    flexGrow: 1
+    flexGrow: 1,
   },
   card: {
-    width: 100
+    width: 100,
   },
   media: {
-    height: 100
-  }
+    height: 100,
+  },
 });
 
 class BreweryComponent extends Component {
   state = {
-    infoOpen: false
+    infoOpen: false,
   };
 
   getProperties = (type) => {
     switch (type) {
-    case 'GrainMill':
-      return properties.GrainMillProps;
-    case 'MashTun':
-      return properties.MashTunProps;
-    case 'SpargingVessel':
-      return properties.SpargingVesselProps;
-    case 'Pump':
-      return properties.PumpProps;
-    case 'WortCopper':
-      return properties.WortCopperProps;
-    case 'Hydrometer':
-      return properties.HydrometerProps;
-    case 'Fermenter':
-      return properties.FermenterProps;
-    case 'WortChiller':
-      return properties.WortChillerProps;
-    case 'Keg':
-      return properties.KegProps;
-    case 'Bottle':
-      return properties.BottleProps;
+      case 'GrainMill':
+        return properties.GrainMillProps;
+      case 'MashTun':
+        return properties.MashTunProps;
+      case 'SpargingVessel':
+        return properties.SpargingVesselProps;
+      case 'Pump':
+        return properties.PumpProps;
+      case 'WortCopper':
+        return properties.WortCopperProps;
+      case 'Hydrometer':
+        return properties.HydrometerProps;
+      case 'Fermenter':
+        return properties.FermenterProps;
+      case 'WortChiller':
+        return properties.WortChillerProps;
+      case 'Keg':
+        return properties.KegProps;
+      case 'Bottle':
+        return properties.BottleProps;
     }
   };
 
@@ -63,14 +63,14 @@ class BreweryComponent extends Component {
       <Dialog
         open={this.state.infoOpen}
         onClose={this.handleInfoClose}
-        aria-labelledby='form-dialog-title'
+        aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id='form-dialog-title'>
+        <DialogTitle id="form-dialog-title">
           {this.getProperties(this.props.type).title}
         </DialogTitle>
         <DialogContent>
           <Paper>
-            <Typography variant='body1' gutterBottom>
+            <Typography variant="body1" gutterBottom>
               {this.getProperties(this.props.type).description}
             </Typography>
           </Paper>
@@ -100,7 +100,7 @@ class BreweryComponent extends Component {
               title={this.getProperties(type).title}
             />
             <CardContent>
-              <Typography gutterBottom variant='body2'>
+              <Typography gutterBottom variant="body2">
                 {this.getProperties(type).title}
               </Typography>
             </CardContent>
@@ -123,8 +123,8 @@ BreweryComponent.propTypes = {
     'Fermenter',
     'WortChiller',
     'Keg',
-    'Bottle'
-  ]).isRequired
+    'Bottle',
+  ]).isRequired,
 };
 
 export default withStyles(styles)(BreweryComponent);

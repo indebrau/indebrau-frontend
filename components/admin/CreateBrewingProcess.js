@@ -11,21 +11,21 @@ import {
   DialogContent,
   Fab,
   DialogTitle,
-  withStyles
+  withStyles,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { Mutation } from 'react-apollo';
 import Error from '../Error';
 import {
   CREATE_BREWING_PROCESS_MUTATION,
-  ALL_BREWING_PROCESSES_QUERY
+  ALL_BREWING_PROCESSES_QUERY,
 } from '../../lib/queriesAndMutations';
 
 const styles = (theme) => ({
   layout: {
     width: 'auto',
     marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   paper: {
     marginTop: theme.spacing(3),
@@ -34,22 +34,21 @@ const styles = (theme) => ({
     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
       marginTop: theme.spacing(6),
       marginBottom: theme.spacing(6),
-      padding: theme.spacing(3)
-    }
+      padding: theme.spacing(3),
+    },
   },
   buttons: {
     display: 'flex',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   button: {
     marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1)
+    marginLeft: theme.spacing(1),
   },
   fab: {
-    margin: theme.spacing(1)
-  }
+    margin: theme.spacing(1),
+  },
 });
-
 
 class CreateBrewingProcess extends Component {
   state = {
@@ -58,7 +57,7 @@ class CreateBrewingProcess extends Component {
     queryStatus: 'notyetdone', // did query pass?
     name: '',
     description: '',
-    startNow: false
+    startNow: false,
   };
 
   saveToState = (e) => {
@@ -90,9 +89,9 @@ class CreateBrewingProcess extends Component {
           <Grid item xs={12}>
             <TextField
               required
-              id='name'
-              name='name'
-              label='Name'
+              id="name"
+              name="name"
+              label="Name"
               value={this.state.name}
               onChange={this.saveToState}
               fullWidth
@@ -102,9 +101,9 @@ class CreateBrewingProcess extends Component {
           <Grid item xs={12}>
             <TextField
               required
-              id='description'
-              name='description'
-              label='Description'
+              id="description"
+              name="description"
+              label="Description"
               value={this.state.description}
               onChange={this.saveToState}
               fullWidth
@@ -114,15 +113,15 @@ class CreateBrewingProcess extends Component {
             <FormControlLabel
               control={
                 <Checkbox
-                  color='secondary'
-                  id='startNow'
-                  name='startNow'
-                  value='startNow'
+                  color="secondary"
+                  id="startNow"
+                  name="startNow"
+                  value="startNow"
                   checked={this.state.startNow}
                   onChange={this.saveCheckToState('startNow')}
                 />
               }
-              label='Start Now'
+              label="Start Now"
             />
           </Grid>
         </Grid>
@@ -136,8 +135,8 @@ class CreateBrewingProcess extends Component {
     return (
       <>
         <Fab
-          color='primary'
-          aria-label='Add'
+          color="primary"
+          aria-label="Add"
           className={classes.fab}
           onClick={this.handleClickOpen}
         >
@@ -151,14 +150,14 @@ class CreateBrewingProcess extends Component {
             <Dialog
               open={this.state.open}
               onClose={this.handleClose}
-              aria-labelledby='form-dialog-title'
+              aria-labelledby="form-dialog-title"
               disableBackdropClick
               fullScreen
             >
               <Error error={this.state.queryStatus} />
               <Error error={this.state.formatting} />
 
-              <DialogTitle id='form-dialog-title'>
+              <DialogTitle id="form-dialog-title">
                 Create Brewing Process
               </DialogTitle>
 
@@ -168,39 +167,39 @@ class CreateBrewingProcess extends Component {
                   <Button
                     onClick={this.handleClose}
                     className={classes.button}
-                    color='secondary'
-                    variant='contained'
+                    color="secondary"
+                    variant="contained"
                   >
                     Cancel
                   </Button>
                   <Button
-                    variant='contained'
-                    color='primary'
+                    variant="contained"
+                    color="primary"
                     onClick={async () => {
                       // prepare variables
                       try {
                         let createBrewingProcessVars = {
                           name: this.state.name,
                           description: this.state.description,
-                          startNow: this.state.startNow
+                          startNow: this.state.startNow,
                         };
                         this.setState({
-                          formatting: 'ok'
+                          formatting: 'ok',
                         });
                         this.setState({ queryStatus: 'ok' });
                         await createBrewingProcess({
-                          variables: { ...createBrewingProcessVars }
+                          variables: { ...createBrewingProcessVars },
                         }).catch((e) => {
                           this.setState({ queryStatus: e });
                         });
                       } catch (exception) {
                         this.setState({
-                          formatting: exception
+                          formatting: exception,
                         });
                       }
                       if (
                         this.state.formatting === 'ok' &&
-                            this.state.queryStatus === 'ok'
+                        this.state.queryStatus === 'ok'
                       ) {
                         this.handleClose();
                       }
@@ -208,7 +207,7 @@ class CreateBrewingProcess extends Component {
                     className={classes.button}
                     disabled={loading}
                   >
-                      Create
+                    Create
                   </Button>
                 </Paper>
               </DialogContent>
@@ -221,7 +220,7 @@ class CreateBrewingProcess extends Component {
 }
 
 CreateBrewingProcess.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(CreateBrewingProcess);

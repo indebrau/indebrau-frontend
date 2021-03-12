@@ -6,8 +6,8 @@ import BreweryComponent from './BreweryComponent';
 const styles = (theme) => ({
   root: {
     textAlign: 'center',
-    padding: theme.spacing(2)
-  }
+    padding: theme.spacing(2),
+  },
 });
 class Brewery extends Component {
   render() {
@@ -15,46 +15,42 @@ class Brewery extends Component {
 
     return (
       <div className={classes.root}>
-        <Typography variant='h5' gutterBottom>
+        <Typography variant="h5" gutterBottom>
           The Indebrau Brewery
         </Typography>
-        <Typography variant='subtitle1' gutterBottom>
+        <Typography variant="subtitle1" gutterBottom>
           An Overview of our Setup
         </Typography>
-        <Grid
-          container
-          spacing={1}
-          justify='center'
-        >
+        <Grid container spacing={1} justify="center">
           <Grid item>
-            <BreweryComponent type='GrainMill' />
+            <BreweryComponent type="GrainMill" />
           </Grid>
           <Grid item>
-            <BreweryComponent type='MashTun' />
+            <BreweryComponent type="MashTun" />
           </Grid>
           <Grid item>
-            <BreweryComponent type='SpargingVessel' />
+            <BreweryComponent type="SpargingVessel" />
           </Grid>
           <Grid item>
-            <BreweryComponent type='Pump' />
+            <BreweryComponent type="Pump" />
           </Grid>
           <Grid item>
-            <BreweryComponent type='WortCopper' />
+            <BreweryComponent type="WortCopper" />
           </Grid>
           <Grid item>
-            <BreweryComponent type='WortChiller' />
+            <BreweryComponent type="WortChiller" />
           </Grid>
           <Grid item>
-            <BreweryComponent type='Fermenter' />
+            <BreweryComponent type="Fermenter" />
           </Grid>
           <Grid item>
-            <BreweryComponent type='Hydrometer' />
+            <BreweryComponent type="Hydrometer" />
           </Grid>
           <Grid item>
-            <BreweryComponent type='Keg' />
+            <BreweryComponent type="Keg" />
           </Grid>
           <Grid item>
-            <BreweryComponent type='Bottle' />
+            <BreweryComponent type="Bottle" />
           </Grid>
         </Grid>
       </div>
@@ -63,7 +59,7 @@ class Brewery extends Component {
 }
 
 Brewery.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Brewery);

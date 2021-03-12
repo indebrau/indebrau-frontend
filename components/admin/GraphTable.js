@@ -5,27 +5,31 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TableRow
+  TableRow,
 } from '@material-ui/core';
 import DeleteGraph from './DeleteGraph';
 
 class GraphTable extends Component {
   render() {
     return (
-      <Table size='small'>
+      <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell align='center'>ID</TableCell>
-            <TableCell align='center'>Details</TableCell>
-            <TableCell align='center' />
+            <TableCell align="center">ID</TableCell>
+            <TableCell align="center">Details</TableCell>
+            <TableCell align="center" />
           </TableRow>
         </TableHead>
         <TableBody>
           {this.props.graphs.map((n) => (
             <TableRow key={n.id} hover>
-              <TableCell align='center'>{n.id}</TableCell>
-              <TableCell align='center'>Name: {n.sensorName} Step: {n.brewingStep.name} Process: {n.brewingStep.brewingProcess.id} Update: {n.updateFrequency} Sec</TableCell>
-              <TableCell align='center'>
+              <TableCell align="center">{n.id}</TableCell>
+              <TableCell align="center">
+                Sensor: {n.sensor.topic} Step: {n.brewingStep.name} Process:{' '}
+                {n.brewingStep.brewingProcess.id} Update: {n.updateFrequency}{' '}
+                Sec
+              </TableCell>
+              <TableCell align="center">
                 <DeleteGraph id={n.id} />
               </TableCell>
             </TableRow>
@@ -37,7 +41,7 @@ class GraphTable extends Component {
 }
 
 GraphTable.propTypes = {
-  graphs: PropTypes.array.isRequired
+  graphs: PropTypes.array.isRequired,
 };
 
 export default GraphTable;

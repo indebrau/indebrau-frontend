@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 import { Paper, Typography, withStyles } from '@material-ui/core';
 import {
   ALL_GRAPHS_QUERY,
-  ACTIVE_GRAPHS_QUERY
+  ACTIVE_GRAPHS_QUERY,
 } from '../../lib/queriesAndMutations';
 import Loading from '../Loading';
 import Error from '../Error';
@@ -18,8 +18,8 @@ const styles = (theme) => ({
     textAlign: 'center',
     overflowX: 'auto',
     padding: theme.spacing(1),
-    maxHeight: '100%'
-  }
+    maxHeight: '100%',
+  },
 });
 
 class AllGraphs extends Component {
@@ -28,7 +28,7 @@ class AllGraphs extends Component {
 
     const activeGraphsVariables = {
       dataPoints: 500,
-      active: true
+      active: true,
     };
 
     return (
@@ -46,12 +46,12 @@ class AllGraphs extends Component {
                 <GraphChart
                   data={activeGraph.graphData}
                   key={activeGraph.id}
-                  sensorName={activeGraph.sensorName}
+                  sensorTopic={activeGraph.sensor.topic}
                 />
               ));
               return (
                 <Paper className={classes.root}>
-                  <Typography variant='subtitle1'>Active Graphs</Typography>
+                  <Typography variant="subtitle1">Active Graphs</Typography>
                   {activeGraphs}
                 </Paper>
               );
@@ -65,7 +65,7 @@ class AllGraphs extends Component {
             if (data) {
               return (
                 <Paper className={classes.root}>
-                  <Typography variant='subtitle1'>All Graphs</Typography>
+                  <Typography variant="subtitle1">All Graphs</Typography>
                   <GraphTable graphs={data.graphs} />
                   <CreateGraph className={classes.root} />
                 </Paper>
@@ -79,7 +79,7 @@ class AllGraphs extends Component {
 }
 
 AllGraphs.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(AllGraphs);

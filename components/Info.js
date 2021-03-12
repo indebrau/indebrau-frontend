@@ -7,12 +7,12 @@ const styles = (theme) => ({
   root: {
     textAlign: 'center',
     padding: theme.spacing(2),
-    maxHeight: '100%'
+    maxHeight: '100%',
   },
   imageWrap: {
     display: 'flex',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 });
 
 class Info extends Component {
@@ -20,15 +20,15 @@ class Info extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Typography variant='h4' gutterBottom>
+        <Typography variant="h4" gutterBottom>
           About Indebrau
         </Typography>
         <div className={classes.imageWrap}>
-          <Image src='/hopfiMalzi.png' width={699} height={504}  />
+          <Image src="/hopfiMalzi.png" width={699} height={504} />
         </div>
         <br />
         <br />
-        <Typography variant='subtitle1' gutterBottom>
+        <Typography variant="subtitle1" gutterBottom>
           info[at]indebrau.de
         </Typography>
       </div>
@@ -37,7 +37,7 @@ class Info extends Component {
 }
 
 Info.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Info);

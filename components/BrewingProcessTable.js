@@ -6,20 +6,18 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TableRow
+  TableRow,
 } from '@material-ui/core';
 import DeleteBrewingProcess from './admin/DeleteBrewingProcess';
 import AdvanceBrewingProcess from './admin/AdvanceBrewingProcess';
 import AddUserToBrewingProcess from './admin/AddUserToBrewingProcess';
-
-
 
 class BrewingProcessTable extends Component {
   handleClick = (id) => {
     Router.push(
       {
         pathname: '/brewingProcess',
-        query: { brewingProcessId: id }
+        query: { brewingProcessId: id },
       },
       '/brewingProcess'
     );
@@ -27,36 +25,39 @@ class BrewingProcessTable extends Component {
 
   render() {
     return (
-      <Table size='small'>
+      <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell align='center'>Name</TableCell>
-            <TableCell align='center'>Step</TableCell>
+            <TableCell align="center">Name</TableCell>
+            <TableCell align="center">Step</TableCell>
             {!this.props.adminView && (
-              <TableCell align='center'>Description</TableCell>
+              <TableCell align="center">Description</TableCell>
             )}
-            {this.props.adminView && <TableCell align='center' />}
+            {this.props.adminView && <TableCell align="center" />}
           </TableRow>
         </TableHead>
         <TableBody>
           {this.props.brewingProcesses.map((n) => (
             <TableRow key={n.id} hover>
-              <TableCell align='center'>
-                {this.props.adminView && n.id+':'} {n.name}
+              <TableCell align="center">
+                {this.props.adminView && n.id + ':'} {n.name}
               </TableCell>
-              <TableCell align='center' onClick={() => this.handleClick(n.id)}>
-                {n.brewingSteps[0] && n.brewingSteps[0].name}{!n.start && 'inactive'}{n.end && 'ended'}
+              <TableCell align="center" onClick={() => this.handleClick(n.id)}>
+                {n.brewingSteps[0] && n.brewingSteps[0].name}
+                {!n.start && 'inactive'}
+                {n.end && 'ended'}
               </TableCell>
               {!this.props.adminView && (
-                <TableCell align='center'>
-                  {n.description}
-                </TableCell>
+                <TableCell align="center">{n.description}</TableCell>
               )}
               {this.props.adminView && (
-                <TableCell align='center'>
+                <TableCell align="center">
                   <DeleteBrewingProcess brewingProcessId={n.id} />
-                  <AdvanceBrewingProcess brewingProcessId={n.id}/>
-                  <AddUserToBrewingProcess brewingProcessId={n.id} participatingUsers={n.participatingUsers}/>
+                  <AdvanceBrewingProcess brewingProcessId={n.id} />
+                  <AddUserToBrewingProcess
+                    brewingProcessId={n.id}
+                    participatingUsers={n.participatingUsers}
+                  />
                 </TableCell>
               )}
             </TableRow>
@@ -69,7 +70,7 @@ class BrewingProcessTable extends Component {
 
 BrewingProcessTable.propTypes = {
   brewingProcesses: PropTypes.array.isRequired,
-  adminView: PropTypes.bool.isRequired
+  adminView: PropTypes.bool.isRequired,
 };
 
 export default BrewingProcessTable;

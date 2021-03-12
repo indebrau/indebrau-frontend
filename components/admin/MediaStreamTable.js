@@ -5,27 +5,31 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TableRow
+  TableRow,
 } from '@material-ui/core';
 import DeleteMediaStream from './DeleteMediaStream';
 
 class MediaStreamTable extends Component {
   render() {
     return (
-      <Table size='small'>
+      <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell align='center'>ID</TableCell>
-            <TableCell align='center'>Details</TableCell>
-            <TableCell align='center' />
+            <TableCell align="center">ID</TableCell>
+            <TableCell align="center">Details</TableCell>
+            <TableCell align="center" />
           </TableRow>
         </TableHead>
         <TableBody>
           {this.props.mediaStreams.map((n) => (
             <TableRow key={n.id} hover>
-              <TableCell align='center'>{n.id}</TableCell>
-              <TableCell align='center'>Name: {n.mediaFilesName} Step: {n.brewingStep.name} Process: {n.brewingStep.brewingProcess.id} Update: {n.updateFrequency} Sec</TableCell>
-              <TableCell align='center'>
+              <TableCell align="center">{n.id}</TableCell>
+              <TableCell align="center">
+                Name: {n.mediaFilesName} Step: {n.brewingStep.name} Process:{' '}
+                {n.brewingStep.brewingProcess.id} Update: {n.updateFrequency}{' '}
+                Sec
+              </TableCell>
+              <TableCell align="center">
                 <DeleteMediaStream id={n.id} />
               </TableCell>
             </TableRow>
@@ -37,7 +41,7 @@ class MediaStreamTable extends Component {
 }
 
 MediaStreamTable.propTypes = {
-  mediaStreams: PropTypes.array.isRequired
+  mediaStreams: PropTypes.array.isRequired,
 };
 
 export default MediaStreamTable;

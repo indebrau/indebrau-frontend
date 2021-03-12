@@ -13,7 +13,7 @@ const styles = (theme) => ({
     overflowX: 'auto',
     padding: theme.spacing(1),
     maxHeight: '100%',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   image: {
     display: 'block',
@@ -21,8 +21,8 @@ const styles = (theme) => ({
     marginRight: 'auto',
     padding: theme.spacing(1),
     maxWidth: '65%',
-    maxHeight: '50em'
-  }
+    maxHeight: '50em',
+  },
 });
 
 class LatestMediaFile extends Component {
@@ -35,7 +35,7 @@ class LatestMediaFile extends Component {
           query={LATEST_MEDIA_STREAM_FILE_QUERY}
           variables={{ id: this.props.id }}
           pollInterval={this.props.updateFrequency * 1000}
-          fetchPolicy='network-only'
+          fetchPolicy="network-only"
         >
           {({ data, error, loading }) => {
             if (loading) return <Loading />;
@@ -46,22 +46,25 @@ class LatestMediaFile extends Component {
                 return (
                   <>
                     <img
-                      src={
-                        `${process.env.BACKEND_ENDPOINT}/media/${this.props.brewingStepId}/${this.props.id}/${mediaFile.publicIdentifier}`
-                      }
+                      // eslint-disable-next-line no-undef
+                      src={`${process.env.BACKEND_ENDPOINT}/media/${this.props.brewingStepId}/${this.props.id}/${mediaFile.publicIdentifier}`}
                       className={classes.image}
                     />
-                    <Typography variant='body2'>
+                    <Typography variant="body2">
                       {data.mediaStream.id}
                     </Typography>
-                    <Typography variant='body2'>
+                    <Typography variant="body2">
                       Last Update:
                       {' ' + renderDate(mediaFile.time, true)}
                     </Typography>
                   </>
                 );
               } else {
-                return <Typography variant='body2'>{data.mediaStream.id}: No Image</Typography>;
+                return (
+                  <Typography variant="body2">
+                    {data.mediaStream.id}: No Image
+                  </Typography>
+                );
               }
             }
           }}
@@ -75,7 +78,7 @@ LatestMediaFile.propTypes = {
   id: PropTypes.string.isRequired,
   updateFrequency: PropTypes.number.isRequired,
   brewingStepId: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(LatestMediaFile);

@@ -9,23 +9,23 @@ import {
   ADVANCE_BREWING_PROCESS_MUTATION,
   ACTIVE_GRAPHS_QUERY,
   ALL_GRAPHS_QUERY,
-  ALL_MEDIA_STREAMS_QUERY
+  ALL_MEDIA_STREAMS_QUERY,
 } from '../../lib/queriesAndMutations';
 
 class AdvanceBrewingProcess extends Component {
   state = {
-    queryError: null
+    queryError: null,
   };
 
   handleClick = () => {
     this.setState({
-      open: true
+      open: true,
     });
   };
 
   handleClose = () => {
     this.setState({
-      queryError: null
+      queryError: null,
     });
   };
 
@@ -34,24 +34,24 @@ class AdvanceBrewingProcess extends Component {
       <Mutation
         mutation={ADVANCE_BREWING_PROCESS_MUTATION}
         refetchQueries={[
-          { query: ALL_BREWING_PROCESSES_QUERY},
-          { query: ACTIVE_GRAPHS_QUERY},
-          { query: ALL_GRAPHS_QUERY},
-          { query: ALL_MEDIA_STREAMS_QUERY}
+          { query: ALL_BREWING_PROCESSES_QUERY },
+          { query: ACTIVE_GRAPHS_QUERY },
+          { query: ALL_GRAPHS_QUERY },
+          { query: ALL_MEDIA_STREAMS_QUERY },
         ]}
       >
         {(advanceBrewingProcess, { loading }) => (
           <>
             <Fab
-              color='primary'
-              aria-label='Add'
+              color="primary"
+              aria-label="Add"
               onClick={async () => {
                 // fire mutation (clear old error)
                 this.setState({ queryError: null });
                 await advanceBrewingProcess({
                   variables: {
                     brewingProcessId: this.props.brewingProcessId,
-                  }
+                  },
                 }).catch((e) => {
                   this.setState({ queryError: e });
                 });
@@ -69,7 +69,7 @@ class AdvanceBrewingProcess extends Component {
 }
 
 AdvanceBrewingProcess.propTypes = {
-  brewingProcessId: PropTypes.string.isRequired
+  brewingProcessId: PropTypes.string.isRequired,
 };
 
 export default AdvanceBrewingProcess;

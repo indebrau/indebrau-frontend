@@ -14,7 +14,7 @@ import {
   MenuItem,
   DialogTitle,
   Select,
-  withStyles
+  withStyles,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { Query, Mutation } from 'react-apollo';
@@ -25,14 +25,14 @@ import {
   ACTIVE_GRAPHS_QUERY,
   ALL_GRAPHS_QUERY,
   ALL_BREWING_PROCESSES_QUERY,
-  CREATE_GRAPH_MUTATION
+  CREATE_GRAPH_MUTATION,
 } from '../../lib/queriesAndMutations';
 
 const styles = (theme) => ({
   layout: {
     width: 'auto',
     marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   paper: {
     marginTop: theme.spacing(3),
@@ -41,20 +41,20 @@ const styles = (theme) => ({
     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
       marginTop: theme.spacing(6),
       marginBottom: theme.spacing(6),
-      padding: theme.spacing(3)
-    }
+      padding: theme.spacing(3),
+    },
   },
   buttons: {
     display: 'flex',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   button: {
     marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1)
+    marginLeft: theme.spacing(1),
   },
   fab: {
-    margin: theme.spacing(1)
-  }
+    margin: theme.spacing(1),
+  },
 });
 
 class CreateGraph extends Component {
@@ -65,10 +65,10 @@ class CreateGraph extends Component {
     queryError: null,
 
     // mutation variables
-    sensorName: '',
+    sensorTopic: '',
     updateFrequency: '',
     brewingProcessId: '',
-    brewingStepName: STEPS[0]
+    brewingStepName: STEPS[0],
   };
 
   handleClose = () => {
@@ -78,10 +78,10 @@ class CreateGraph extends Component {
       queryError: null,
 
       // mutation variables
-      sensorName: '',
+      sensorTopic: '',
       updateFrequency: '',
       brewingProcessId: '',
-      brewingStepName: STEPS[0]
+      brewingStepName: STEPS[0],
     });
   };
 
@@ -106,8 +106,8 @@ class CreateGraph extends Component {
     return (
       <>
         <Fab
-          color='primary'
-          aria-label='Add'
+          color="primary"
+          aria-label="Add"
           className={classes.fab}
           onClick={this.handleClickOpen}
         >
@@ -117,19 +117,19 @@ class CreateGraph extends Component {
           mutation={CREATE_GRAPH_MUTATION}
           refetchQueries={[
             { query: ACTIVE_GRAPHS_QUERY },
-            { query: ALL_GRAPHS_QUERY }
+            { query: ALL_GRAPHS_QUERY },
           ]}
         >
           {(createGraph, { loading }) => (
             <Dialog
               open={this.state.open}
               onClose={this.handleClose}
-              aria-labelledby='form-dialog-title'
+              aria-labelledby="form-dialog-title"
               disableBackdropClick
               fullScreen
             >
               <Error error={this.state.queryError} />
-              <DialogTitle id='form-dialog-title'>Create Graph</DialogTitle>
+              <DialogTitle id="form-dialog-title">Create Graph</DialogTitle>
 
               <DialogContent>
                 <main className={classes.layout}>
@@ -138,10 +138,10 @@ class CreateGraph extends Component {
                       <Grid item xs={12}>
                         <TextField
                           required
-                          id='sensorName'
-                          name='sensorName'
-                          label='Sensor Name'
-                          value={this.state.sensorName}
+                          id="sensorTopic"
+                          name="sensorTopic"
+                          label="Sensor Topic Name"
+                          value={this.state.sensorTopic}
                           onChange={this.saveToState}
                           fullWidth
                         />
@@ -149,9 +149,9 @@ class CreateGraph extends Component {
                       <Grid item xs={12}>
                         <TextField
                           required
-                          id='updateFrequency'
-                          name='updateFrequency'
-                          label='Update Frequency'
+                          id="updateFrequency"
+                          name="updateFrequency"
+                          label="Update Frequency"
                           value={this.state.updateFrequency}
                           onChange={this.saveToState}
                           fullWidth
@@ -168,37 +168,43 @@ class CreateGraph extends Component {
                             }
                             return (
                               <FormControl className={classes.formControl}>
-                                <InputLabel htmlFor='select-brewingProcess'>
+                                <InputLabel htmlFor="select-brewingProcess">
                                   Brewing Process
                                 </InputLabel>
                                 <Select
                                   onChange={this.handleNewBrewingProcessId}
                                   value={this.state.brewingProcessId}
-                                  input={<Input id='select-brewingProcess' />}
+                                  input={<Input id="select-brewingProcess" />}
                                   displayEmpty={true}
                                 >
                                   {brewingProcesses.map((process) => (
-                                    <MenuItem key={process.id} value={process.id}>{process.id}: {process.name}</MenuItem>
+                                    <MenuItem
+                                      key={process.id}
+                                      value={process.id}
+                                    >
+                                      {process.id}: {process.name}
+                                    </MenuItem>
                                   ))}
                                 </Select>
                               </FormControl>
                             );
-                          }
-                          }
+                          }}
                         </Query>
                       </Grid>
                     </Grid>
                     <FormControl className={classes.formControl}>
-                      <InputLabel htmlFor='select-brewingStepName'>
+                      <InputLabel htmlFor="select-brewingStepName">
                         Brewing Step
                       </InputLabel>
                       <Select
                         onChange={this.handleNewBrewingStepName}
                         value={this.state.brewingStepName}
-                        input={<Input id='select-brewingStepName' />}
+                        input={<Input id="select-brewingStepName" />}
                       >
                         {STEPS.map((step) => (
-                          <MenuItem key={step} value={step}>{step}</MenuItem>
+                          <MenuItem key={step} value={step}>
+                            {step}
+                          </MenuItem>
                         ))}
                       </Select>
                     </FormControl>
@@ -206,26 +212,26 @@ class CreateGraph extends Component {
                       <Button
                         onClick={this.handleClose}
                         className={classes.button}
-                        color='secondary'
-                        variant='contained'
+                        color="secondary"
+                        variant="contained"
                       >
                         Cancel
                       </Button>
                       <Button
-                        variant='contained'
-                        color='primary'
+                        variant="contained"
+                        color="primary"
                         onClick={async () => {
                           // fire mutation (clear old error)
                           this.setState({ queryError: null });
                           await createGraph({
                             variables: {
-                              sensorName: this.state.sensorName,
+                              sensorTopic: this.state.sensorTopic,
                               updateFrequency: parseInt(
                                 this.state.updateFrequency
                               ),
                               brewingProcessId: this.state.brewingProcessId,
-                              brewingStepName: this.state.brewingStepName
-                            }
+                              brewingStepName: this.state.brewingStepName,
+                            },
                           }).catch((e) => {
                             this.setState({ queryError: e });
                           });
@@ -251,7 +257,7 @@ class CreateGraph extends Component {
 }
 
 CreateGraph.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(CreateGraph);

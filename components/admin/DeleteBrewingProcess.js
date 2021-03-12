@@ -5,7 +5,7 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
-  Fab
+  Fab,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Mutation } from 'react-apollo';
@@ -15,13 +15,13 @@ import {
   DELETE_BREWING_PROCESS_MUTATION,
   ACTIVE_GRAPHS_QUERY,
   ALL_GRAPHS_QUERY,
-  ALL_MEDIA_STREAMS_QUERY
+  ALL_MEDIA_STREAMS_QUERY,
 } from '../../lib/queriesAndMutations';
 
 class DeleteBrewingProcess extends Component {
   state = {
     open: false,
-    queryError: null
+    queryError: null,
   };
 
   saveToState = (e) => {
@@ -33,56 +33,53 @@ class DeleteBrewingProcess extends Component {
   handleClose = () => {
     this.setState({
       open: false,
-      queryError: null
+      queryError: null,
     });
   };
 
   render() {
     return (
       <>
-        <Fab
-          aria-label='Delete'
-          onClick={this.handleClickOpen}
-        >
+        <Fab aria-label="Delete" onClick={this.handleClickOpen}>
           <DeleteIcon />
         </Fab>
         <Mutation
           mutation={DELETE_BREWING_PROCESS_MUTATION}
           refetchQueries={[
             { query: ALL_BREWING_PROCESSES_QUERY },
-            { query: ACTIVE_GRAPHS_QUERY},
-            { query: ALL_GRAPHS_QUERY},
-            { query: ALL_MEDIA_STREAMS_QUERY}
+            { query: ACTIVE_GRAPHS_QUERY },
+            { query: ALL_GRAPHS_QUERY },
+            { query: ALL_MEDIA_STREAMS_QUERY },
           ]}
         >
           {(deleteBrewingProcess, { loading }) => (
             <Dialog
               open={this.state.open}
               onClose={this.handleClose}
-              aria-labelledby='form-dialog-title'
+              aria-labelledby="form-dialog-title"
             >
               <Error error={this.state.queryError} />
-              <DialogTitle id='form-dialog-title'>
+              <DialogTitle id="form-dialog-title">
                 Delete Brewing Process
               </DialogTitle>
               <DialogContent>
                 <Button
                   onClick={this.handleClose}
-                  color='secondary'
-                  variant='contained'
+                  color="secondary"
+                  variant="contained"
                 >
                   Cancel
                 </Button>
                 <Button
-                  variant='contained'
-                  color='primary'
+                  variant="contained"
+                  color="primary"
                   onClick={async () => {
                     // fire mutation (clear old error)
                     this.setState({ queryError: null });
                     await deleteBrewingProcess({
                       variables: {
-                        brewingProcessId: this.props.brewingProcessId
-                      }
+                        brewingProcessId: this.props.brewingProcessId,
+                      },
                     }).catch((e) => {
                       this.setState({ queryError: e });
                     });
@@ -104,7 +101,7 @@ class DeleteBrewingProcess extends Component {
 }
 
 DeleteBrewingProcess.propTypes = {
-  brewingProcessId: PropTypes.string.isRequired
+  brewingProcessId: PropTypes.string.isRequired,
 };
 
 export default DeleteBrewingProcess;

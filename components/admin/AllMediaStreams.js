@@ -2,7 +2,10 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Paper, Typography } from '@material-ui/core';
 import { Query } from 'react-apollo';
-import { ALL_MEDIA_STREAMS_QUERY, ACTIVE_MEDIA_STREAMS_QUERY } from '../../lib/queriesAndMutations';
+import {
+  ALL_MEDIA_STREAMS_QUERY,
+  ACTIVE_MEDIA_STREAMS_QUERY,
+} from '../../lib/queriesAndMutations';
 import MediaStreamTable from './MediaStreamTable';
 import LatestMediaFile from '../LatestMediaFile';
 import CreateMediaStream from './CreateMediaStream';
@@ -15,8 +18,8 @@ const styles = (theme) => ({
     overflowX: 'auto',
     padding: theme.spacing(1),
     maxHeight: '100%',
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });
 
 class AllMediaStreams extends Component {
@@ -32,7 +35,7 @@ class AllMediaStreams extends Component {
             if (data) {
               return (
                 <Paper className={classes.root}>
-                  <Typography variant='subtitle1'>All Media Streams</Typography>
+                  <Typography variant="subtitle1">All Media Streams</Typography>
                   <MediaStreamTable mediaStreams={data.mediaStreams} />
                 </Paper>
               );
@@ -44,19 +47,17 @@ class AllMediaStreams extends Component {
             if (loading) return <Loading />;
             if (error) return <Error error={error} />;
             if (data) {
-              const mediaFiles = data.mediaStreams.map(
-                (mediaStream) => (
-                  <LatestMediaFile
-                    key={mediaStream.id}
-                    id={mediaStream.id}
-                    brewingStepId={mediaStream.brewingStep.id}
-                    updateFrequency={mediaStream.updateFrequency}
-                  />
-                )
-              );
+              const mediaFiles = data.mediaStreams.map((mediaStream) => (
+                <LatestMediaFile
+                  key={mediaStream.id}
+                  id={mediaStream.id}
+                  brewingStepId={mediaStream.brewingStep.id}
+                  updateFrequency={mediaStream.updateFrequency}
+                />
+              ));
               return (
                 <Paper className={classes.root}>
-                  <Typography variant='subtitle1'>Current Images</Typography>
+                  <Typography variant="subtitle1">Current Images</Typography>
                   {mediaFiles}
                   <CreateMediaStream className={classes.root} />
                 </Paper>
@@ -70,7 +71,7 @@ class AllMediaStreams extends Component {
 }
 
 AllMediaStreams.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(AllMediaStreams);

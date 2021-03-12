@@ -3,7 +3,7 @@ import { Mutation } from 'react-apollo';
 import { Button } from '@material-ui/core';
 import {
   CURRENT_USER_QUERY,
-  SIGN_OUT_MUTATION
+  SIGN_OUT_MUTATION,
 } from '../lib/queriesAndMutations';
 
 class Signout extends Component {

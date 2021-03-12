@@ -7,13 +7,13 @@ import theme from '../lib/theme';
 class MyDocument extends Document {
   render() {
     return (
-      <Html lang='en' dir='ltr'>
+      <Html lang="en" dir="ltr">
         <Head>
-          <meta charSet='utf-8' />
-          <meta name='theme-color' content={theme.palette.primary.main} />
+          <meta charSet="utf-8" />
+          <meta name="theme-color" content={theme.palette.primary.main} />
           <link
-            rel='stylesheet'
-            href='https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap'
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap"
           />
         </Head>
         <body>
@@ -32,7 +32,7 @@ MyDocument.getInitialProps = async (ctx) => {
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (App) => (props) => sheets.collect(<App {...props} />)
+      enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
     });
 
   const initialProps = await Document.getInitialProps(ctx);
@@ -45,7 +45,7 @@ MyDocument.getInitialProps = async (ctx) => {
         {sheets.getStyleElement()}
         {flush() || null}
       </React.Fragment>
-    )
+    ),
   };
 };
 

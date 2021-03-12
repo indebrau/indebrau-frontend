@@ -14,8 +14,8 @@ const styles = (theme) => ({
     overflowX: 'auto',
     padding: theme.spacing(1),
     maxHeight: '100%',
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });
 
 class AllBrewingProcesses extends Component {
@@ -29,7 +29,7 @@ class AllBrewingProcesses extends Component {
           // success!
           return (
             <Paper className={classes.root}>
-              <Typography variant='subtitle1' className={classes.root}>
+              <Typography variant="subtitle1" className={classes.root}>
                 All Brewing Processes
               </Typography>
               <BrewingProcessTable
@@ -46,7 +46,7 @@ class AllBrewingProcesses extends Component {
 }
 
 AllBrewingProcesses.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(AllBrewingProcesses);

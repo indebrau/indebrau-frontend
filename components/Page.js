@@ -14,6 +14,6 @@ class Page extends Component {
 }
 
 Page.propTypes = {
-  children: PropTypes.object.isRequired
+  children: PropTypes.object.isRequired,
 };
 export default Page;

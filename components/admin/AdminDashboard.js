@@ -14,7 +14,7 @@ import {
   ListItemText,
   Typography,
   Button,
-  withStyles
+  withStyles,
 } from '@material-ui/core';
 
 import Link from '../Link';
@@ -26,36 +26,36 @@ const drawerWidth = 160;
 
 const styles = (theme) => ({
   root: {
-    display: 'flex'
+    display: 'flex',
   },
   toolbarIcon: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: '0 8px',
-    ...theme.mixins.toolbar
+    ...theme.mixins.toolbar,
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   menuButton: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
   },
   menuButtonHidden: {
-    display: 'none'
+    display: 'none',
   },
   title: {
     flexGrow: 1,
@@ -71,36 +71,36 @@ const styles = (theme) => ({
     width: drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   drawerPaperClose: {
     overflowX: 'hidden',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
+      duration: theme.transitions.duration.leavingScreen,
     }),
     width: theme.spacing(0),
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(0)
-    }
+      width: theme.spacing(0),
+    },
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
     padding: theme.spacing(1),
     height: '100vh',
-    overflow: 'auto'
+    overflow: 'auto',
   },
   chartContainer: {
-    marginLeft: -22
-  }
+    marginLeft: -22,
+  },
 });
 
 class AdminDashboard extends Component {
   state = {
     open: false,
-    activeWindow: 'AdminHome'
+    activeWindow: 'AdminHome',
   };
 
   setActiveWindow = (activeWindow) => {
@@ -132,9 +132,9 @@ class AdminDashboard extends Component {
                     <Error
                       error={{ message: 'You are no admin, please go back' }}
                     />
-                    <Link href='/'>
+                    <Link href="/">
                       <ListItem button>
-                        <ListItemText primary='Back' />
+                        <ListItemText primary="Back" />
                       </ListItem>
                     </Link>
                   </main>
@@ -144,7 +144,7 @@ class AdminDashboard extends Component {
             return (
               <div className={classes.root}>
                 <AppBar
-                  position='absolute'
+                  position="absolute"
                   className={classNames(
                     classes.appBar,
                     this.state.open && classes.appBarShift
@@ -155,8 +155,8 @@ class AdminDashboard extends Component {
                     className={classes.toolbar}
                   >
                     <IconButton
-                      color='inherit'
-                      aria-label='Open drawer'
+                      color="inherit"
+                      aria-label="Open drawer"
                       onClick={this.handleDrawerOpen}
                       className={classNames(
                         classes.menuButton,
@@ -166,25 +166,25 @@ class AdminDashboard extends Component {
                       <MenuIcon />
                     </IconButton>
                     <Typography
-                      variant='subtitle1'
-                      color='inherit'
+                      variant="subtitle1"
+                      color="inherit"
                       noWrap
                       className={classes.title}
                     >
                       Indebrau - Admin Area
                     </Typography>
-                    <Link href='/'>
+                    <Link href="/">
                       <Button className={classes.homeLink}>Back</Button>
                     </Link>
                   </Toolbar>
                 </AppBar>
                 <Drawer
-                  variant='permanent'
+                  variant="permanent"
                   classes={{
                     paper: classNames(
                       classes.drawerPaper,
                       !this.state.open && classes.drawerPaperClose
-                    )
+                    ),
                   }}
                   open={this.state.open}
                 >
@@ -197,43 +197,45 @@ class AdminDashboard extends Component {
                   <List>
                     <ListItem
                       button
-                      selected={this.state.activeWindow=='AdminHome'}
+                      selected={this.state.activeWindow == 'AdminHome'}
                       onClick={() => {
                         this.setActiveWindow('AdminHome');
                         this.handleDrawerClose();
                       }}
                     >
-                      <ListItemText primary='Sensor Overview' />
+                      <ListItemText primary="Sensor Overview" />
                     </ListItem>
                     <ListItem
                       button
-                      selected={this.state.activeWindow=='AllBrewingProcesses'}
+                      selected={
+                        this.state.activeWindow == 'AllBrewingProcesses'
+                      }
                       onClick={() => {
                         this.setActiveWindow('AllBrewingProcesses');
                         this.handleDrawerClose();
                       }}
                     >
-                      <ListItemText primary='Brewing Processes' />
+                      <ListItemText primary="Brewing Processes" />
                     </ListItem>
                     <ListItem
                       button
-                      selected={this.state.activeWindow=='AllGraphs'}
+                      selected={this.state.activeWindow == 'AllGraphs'}
                       onClick={() => {
                         this.setActiveWindow('AllGraphs');
                         this.handleDrawerClose();
                       }}
                     >
-                      <ListItemText primary='Graphs' />
+                      <ListItemText primary="Graphs" />
                     </ListItem>
                     <ListItem
                       button
-                      selected={this.state.activeWindow=='AllMediaStreams'}
+                      selected={this.state.activeWindow == 'AllMediaStreams'}
                       onClick={() => {
                         this.setActiveWindow('AllMediaStreams');
                         this.handleDrawerClose();
                       }}
                     >
-                      <ListItemText primary='Media Streams' />
+                      <ListItemText primary="Media Streams" />
                     </ListItem>
                   </List>
                 </Drawer>
@@ -251,7 +253,7 @@ class AdminDashboard extends Component {
 }
 
 AdminDashboard.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(AdminDashboard);

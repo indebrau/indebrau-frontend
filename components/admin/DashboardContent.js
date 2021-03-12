@@ -10,8 +10,8 @@ const styles = (theme) => ({
   root: {
     textAlign: 'center',
     padding: theme.spacing(2),
-    maxHeight: '100%'
-  }
+    maxHeight: '100%',
+  },
 });
 
 class DashboardContent extends Component {
@@ -37,7 +37,7 @@ class DashboardContent extends Component {
 
 DashboardContent.propTypes = {
   classes: PropTypes.object.isRequired,
-  activeWindow: PropTypes.string.isRequired
+  activeWindow: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(DashboardContent);

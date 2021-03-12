@@ -14,8 +14,8 @@ import { BREWING_PROCESS_QUERY } from '../lib/queriesAndMutations';
 const styles = (theme) => ({
   root: {
     textAlign: 'center',
-    padding: theme.spacing(2)
-  }
+    padding: theme.spacing(2),
+  },
 });
 
 class BrewingProcess extends Component {
@@ -36,14 +36,14 @@ class BrewingProcess extends Component {
               let { brewingProcess } = data;
               if (brewingProcess.end) {
                 return (
-                  <Typography variant='h5' gutterBottom>
+                  <Typography variant="h5" gutterBottom>
                     {brewingProcess.name} has ended!
                   </Typography>
                 );
               }
               if (!brewingProcess.start) {
                 return (
-                  <Typography variant='h5' gutterBottom>
+                  <Typography variant="h5" gutterBottom>
                     {brewingProcess.name} has not started yet!
                   </Typography>
                 );
@@ -51,18 +51,19 @@ class BrewingProcess extends Component {
               let brewingStep = brewingProcess.brewingSteps[0]; // "active" is set in query!
               let name = brewingStep.name;
               const activeGraphs = [];
-              brewingStep.graphs.map(activeGraph => {
+              brewingStep.graphs.map((activeGraph) => {
                 activeGraphs.push(
-                  <ResponsiveContainer width='99%'  key={activeGraph.id}>
+                  <ResponsiveContainer width="99%" key={activeGraph.id}>
                     <GraphChart
                       data={activeGraph.graphData}
                       key={activeGraph.id}
-                      sensorName={activeGraph.sensorName}
+                      sensorTopic={activeGraph.sensor.topic}
                     />
-                  </ResponsiveContainer>);
+                  </ResponsiveContainer>
+                );
               });
               const activeStreams = [];
-              brewingStep.mediaStreams.map(mediaStream => {
+              brewingStep.mediaStreams.map((mediaStream) => {
                 activeStreams.push(
                   <Grid item key={mediaStream.id}>
                     <LatestMediaFile
@@ -71,62 +72,68 @@ class BrewingProcess extends Component {
                       brewingStepId={brewingStep.id}
                       updateFrequency={mediaStream.updateFrequency}
                     />
-                  </Grid>);
+                  </Grid>
+                );
               });
               return (
                 <>
-                  <Typography variant='h5' gutterBottom>
+                  <Typography variant="h5" gutterBottom>
                     {brewingProcess.name}
                   </Typography>
-                  <Grid
-                    container
-                    spacing={1}
-                    justify='center'
-                  >
+                  <Grid container spacing={1} justify="center">
                     <Grid item>
-                      {name == 'PREPARING' && <BreweryComponent type='GrainMill' />}
+                      {name == 'PREPARING' && (
+                        <BreweryComponent type="GrainMill" />
+                      )}
                     </Grid>
                     <Grid item>
-                      {name == 'BREWING' && <BreweryComponent type='MashTun' />}
+                      {name == 'BREWING' && <BreweryComponent type="MashTun" />}
                     </Grid>
                     <Grid item>
-                      {name == 'BREWING' && <BreweryComponent type='SpargingVessel' />}
+                      {name == 'BREWING' && (
+                        <BreweryComponent type="SpargingVessel" />
+                      )}
                     </Grid>
                     <Grid item>
-                      {name == 'BREWING' && <BreweryComponent type='Pump' />}
+                      {name == 'BREWING' && <BreweryComponent type="Pump" />}
                     </Grid>
                     <Grid item>
-                      {name == 'BREWING' && <BreweryComponent type='WortCopper' />}
+                      {name == 'BREWING' && (
+                        <BreweryComponent type="WortCopper" />
+                      )}
                     </Grid>
                     <Grid item>
-                      {name == 'BREWING' && <BreweryComponent type='WortChiller' />}
+                      {name == 'BREWING' && (
+                        <BreweryComponent type="WortChiller" />
+                      )}
                     </Grid>
                     <Grid item>
-                      {name == 'FERMENTING' && <BreweryComponent type='Fermenter' />}
+                      {name == 'FERMENTING' && (
+                        <BreweryComponent type="Fermenter" />
+                      )}
                     </Grid>
                     <Grid item>
-                      {name == 'FERMENTING' && <BreweryComponent type='Hydrometer' />}
+                      {name == 'FERMENTING' && (
+                        <BreweryComponent type="Hydrometer" />
+                      )}
                     </Grid>
                     <Grid item>
-                      {name == 'CONDITIONING' && <BreweryComponent type='Keg' />}
+                      {name == 'CONDITIONING' && (
+                        <BreweryComponent type="Keg" />
+                      )}
                     </Grid>
                     <Grid item>
-                      {name == 'BOTTLING' && <BreweryComponent type='Bottle' />}
+                      {name == 'BOTTLING' && <BreweryComponent type="Bottle" />}
                     </Grid>
                   </Grid>
-                  <Grid
-                    container
-                    spacing={1}
-                    justify='center'
-                  >
+                  <Grid container spacing={1} justify="center">
                     {activeGraphs}
                     {activeStreams}
                   </Grid>
                 </>
               );
             }
-          }
-          }
+          }}
         </Query>
       </div>
     );
@@ -135,7 +142,7 @@ class BrewingProcess extends Component {
 
 BrewingProcess.propTypes = {
   classes: PropTypes.object.isRequired,
-  brewingProcessId: PropTypes.string.isRequired
+  brewingProcessId: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(BrewingProcess);
