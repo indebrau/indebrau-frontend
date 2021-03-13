@@ -25,7 +25,7 @@ class GraphTable extends Component {
             <TableRow key={n.id} hover>
               <TableCell align="center">{n.id}</TableCell>
               <TableCell align="center">
-                Sensor: {n.sensor.topic} Step: {n.brewingStep.name} Process:{' '}
+                Sensor: {n.sensor.name} Step: {n.brewingStep.name} Process:{' '}
                 {n.brewingStep.brewingProcess.id} Update: {n.updateFrequency}{' '}
                 Sec
               </TableCell>

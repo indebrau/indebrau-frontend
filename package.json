@@ -1,9 +1,8 @@
 {
   "name": "indebrau-frontend",
   "version": "0.2.0",
-  "private": true,
   "description": "The frontend of indebrau",
-  "repository": "https://github.com/PedeLa/indebrau-frontend",
+  "repository": "https://github.com/indebrau/indebrau-frontend",
   "scripts": {
     "deploy": "npm run build && npm run start",
     "dev": "next",
@@ -25,7 +24,6 @@
     "graphql": "15.5.0",
     "next": "10.0.8",
     "next-with-apollo": "5.1.1",
-    "nprogress": "0.2.0",
     "prop-types": "15.7.2",
     "react": "17.0.1",
     "react-apollo": "3.1.5",
