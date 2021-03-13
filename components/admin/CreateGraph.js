@@ -61,8 +61,6 @@ const styles = (theme) => ({
 class CreateGraph extends Component {
   state = {
     open: false,
-    brewingProcessOpen: false,
-    brewingStepOpen: false,
     queryError: null,
 
     // mutation variables
@@ -75,7 +73,6 @@ class CreateGraph extends Component {
   handleClose = () => {
     this.setState({
       open: false,
-      brewingProcessOpen: false,
       queryError: null,
 
       // mutation variables

@@ -129,9 +129,7 @@ class AdminDashboard extends Component {
                 <div className={classes.root}>
                   <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
-                    <Error
-                      error={{ message: 'You are no admin, please go back' }}
-                    />
+                    <Error error={{ message: 'Admin Area' }} />
                     <Link href="/">
                       <ListItem button>
                         <ListItemText primary="Back" />

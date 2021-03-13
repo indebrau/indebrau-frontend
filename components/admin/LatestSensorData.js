@@ -13,6 +13,7 @@ import {
 import { SENSOR_QUERY } from '../../lib/queriesAndMutations';
 import { renderDate, parseSensorValue } from '../../lib/utils.js';
 import Error from '../Error';
+import CreateSensor from './CreateSensor';
 
 const styles = (theme) => ({
   root: {
@@ -59,6 +60,7 @@ class LatestSensorValues extends Component {
             }}
           </Query>
         </Table>
+        <CreateSensor className={classes.root} />
       </Paper>
     );
   }
