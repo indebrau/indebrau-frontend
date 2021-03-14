@@ -34,8 +34,8 @@ class LatestSensorValues extends Component {
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell align="center">Sensor Name</TableCell>
-              <TableCell align="center">Time Stamp</TableCell>
+              <TableCell align="center">Sensor</TableCell>
+              <TableCell align="center">Time</TableCell>
               <TableCell align="center">Value</TableCell>
             </TableRow>
           </TableHead>

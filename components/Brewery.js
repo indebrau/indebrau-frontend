@@ -15,11 +15,8 @@ class Brewery extends Component {
 
     return (
       <div className={classes.root}>
-        <Typography variant="h5" gutterBottom>
-          The Indebrau Brewery
-        </Typography>
         <Typography variant="subtitle1" gutterBottom>
-          An Overview of our Setup
+          The Brewery
         </Typography>
         <Grid container spacing={1} justify="center">
           <Grid item>

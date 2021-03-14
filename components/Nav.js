@@ -1,6 +1,12 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Toolbar, Button, Typography, withStyles } from '@material-ui/core';
+import {
+  Toolbar,
+  Button,
+  Typography,
+  withStyles,
+  Avatar,
+} from '@material-ui/core';
 import Link from './Link';
 
 import { CurrentUser } from './User';
@@ -19,7 +25,7 @@ const styles = (theme) => ({
   },
   toolbarTitle: {
     flex: 1,
-    [theme.breakpoints.down(425 + theme.spacing(2))]: {
+    [theme.breakpoints.down(300 + theme.spacing(2))]: {
       display: 'none',
     },
   },
@@ -57,12 +63,9 @@ class Nav extends Component {
                   noWrap
                   className={classes.toolbarTitle}
                 />
-                <Link href="/about">
-                  <Button>about</Button>
-                </Link>
                 <Link href="/user">
                   {!me && <Button>Sign In</Button>}
-                  {me && <Button>{me.name}</Button>}
+                  {me && <Avatar>{me.name.charAt(0).toUpperCase()}</Avatar>}
                 </Link>
               </Toolbar>
             );
