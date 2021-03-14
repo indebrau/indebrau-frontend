@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import {
   Paper,
   Button,
-  TextField,
-  Grid,
+  FormControl,
+  InputLabel,
+  Input,
   Dialog,
   DialogContent,
   Fab,
@@ -20,12 +21,10 @@ import {
 } from '../../lib/queriesAndMutations';
 
 const styles = (theme) => ({
-  layout: {
+  paper: {
     width: 'auto',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
-  },
-  paper: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
@@ -34,10 +33,6 @@ const styles = (theme) => ({
       marginBottom: theme.spacing(6),
       padding: theme.spacing(3),
     },
-  },
-  buttons: {
-    display: 'flex',
-    justifyContent: 'flex-end',
   },
   button: {
     marginTop: theme.spacing(3),
@@ -93,7 +88,7 @@ class CreateSensor extends Component {
           mutation={CREATE_SENSOR_MUTATION}
           refetchQueries={[{ query: SENSOR_QUERY }]}
         >
-          {(createGraph, { loading }) => (
+          {(createSensor, { loading }) => (
             <Dialog
               open={this.state.open}
               onClose={this.handleClose}
@@ -102,72 +97,71 @@ class CreateSensor extends Component {
               fullScreen
             >
               <Error error={this.state.queryError} />
-              <DialogTitle id="form-dialog-title">Create Graph</DialogTitle>
+              <DialogTitle id="form-dialog-title">Create Sensor</DialogTitle>
 
               <DialogContent>
-                <main className={classes.layout}>
-                  <Paper className={classes.paper}>
-                    <Grid container spacing={8}>
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          id="sensorName"
-                          name="sensorName"
-                          label="Sensor Name"
-                          value={this.state.sensorName}
-                          onChange={this.saveToState}
-                          fullWidth
-                        />
-                      </Grid>
-                    </Grid>
-                    <Grid container spacing={8}>
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          id="sensorTopic"
-                          name="sensorTopic"
-                          label="Sensor Topic"
-                          value={this.state.sensorTopic}
-                          onChange={this.saveToState}
-                          fullWidth
-                        />
-                      </Grid>
-                    </Grid>
-                    <div className={classes.buttons}>
-                      <Button
-                        onClick={this.handleClose}
-                        className={classes.button}
-                        color="secondary"
-                        variant="contained"
-                      >
-                        Cancel
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={async () => {
-                          // fire mutation (clear old error)
-                          this.setState({ queryError: null });
-                          await createGraph({
-                            variables: {
-                              topic: this.state.sensorTopic,
-                              name: this.state.sensorName,
-                            },
-                          }).catch((e) => {
-                            this.setState({ queryError: e });
-                          });
-                          if (this.state.queryError == null) {
-                            this.handleClose();
-                          }
-                        }}
-                        className={classes.button}
-                        disabled={loading}
-                      >
-                        Create
-                      </Button>
-                    </div>
-                  </Paper>
-                </main>
+                <Paper className={classes.paper}>
+                  <form
+                    className={classes.form}
+                    method="post"
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      // fire mutation (clear old error)
+                      this.setState({ queryError: null });
+                      await createSensor({
+                        variables: {
+                          topic: this.state.sensorTopic,
+                          name: this.state.sensorName,
+                        },
+                      }).catch((e) => {
+                        this.setState({ queryError: e });
+                      });
+                      if (this.state.queryError == null) {
+                        this.handleClose();
+                      }
+                    }}
+                  >
+                    <FormControl margin="normal" required fullWidth>
+                      <InputLabel htmlFor="sensorName">Sensor Name</InputLabel>
+                      <Input
+                        id="sensorName"
+                        name="sensorName"
+                        value={this.state.sensorName}
+                        onChange={this.saveToState}
+                        autoFocus
+                      />
+                    </FormControl>
+                    <FormControl margin="normal" required fullWidth>
+                      <InputLabel htmlFor="sensorTopic">
+                        Sensor Topic
+                      </InputLabel>
+                      <Input
+                        id="sensorTopic"
+                        name="sensorTopic"
+                        value={this.state.sensorTopic}
+                        onChange={this.saveToState}
+                        autoFocus
+                      />
+                    </FormControl>
+                    <Button
+                      onClick={this.handleClose}
+                      className={classes.button}
+                      color="secondary"
+                      variant="contained"
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      className={classes.button}
+                      disabled={loading}
+                    >
+                      Create
+                    </Button>
+                  </form>
+                </Paper>
               </DialogContent>
             </Dialog>
           )}

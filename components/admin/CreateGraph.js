@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {
   Paper,
   Button,
-  TextField,
   Grid,
   Dialog,
   DialogContent,
@@ -30,12 +29,10 @@ import {
 } from '../../lib/queriesAndMutations';
 
 const styles = (theme) => ({
-  layout: {
+  paper: {
     width: 'auto',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
-  },
-  paper: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
@@ -44,10 +41,6 @@ const styles = (theme) => ({
       marginBottom: theme.spacing(6),
       padding: theme.spacing(3),
     },
-  },
-  buttons: {
-    display: 'flex',
-    justifyContent: 'flex-end',
   },
   button: {
     marginTop: theme.spacing(3),
@@ -134,43 +127,30 @@ class CreateGraph extends Component {
               <DialogTitle id="form-dialog-title">Create Graph</DialogTitle>
 
               <DialogContent>
-                <main className={classes.layout}>
-                  <Paper className={classes.paper}>
-                    <Grid container spacing={8}>
-                      <Grid item xs={12}>
-                        <Query query={SENSOR_QUERY}>
-                          {({ data, error, loading }) => {
-                            if (loading) return <Loading />;
-                            if (error) return <Error error={error} />;
-                            let sensors = [''];
-                            if (data) {
-                              sensors = data.sensors;
-                            }
-                            return (
-                              <FormControl className={classes.formControl}>
-                                <InputLabel htmlFor="select-sensor">
-                                  Sensor
-                                </InputLabel>
-                                <Select
-                                  onChange={this.handleNewSensorTopic}
-                                  value={this.state.sensorTopic}
-                                  input={<Input id="select-sensor" />}
-                                  displayEmpty={true}
-                                >
-                                  {sensors.map((sensor) => (
-                                    <MenuItem
-                                      key={sensor.topic}
-                                      value={sensor.topic}
-                                    >
-                                      {sensor.name}
-                                    </MenuItem>
-                                  ))}
-                                </Select>
-                              </FormControl>
-                            );
-                          }}
-                        </Query>
-                      </Grid>
+                <Paper className={classes.paper}>
+                  <form
+                    className={classes.form}
+                    method="post"
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      // fire mutation (clear old error)
+                      this.setState({ queryError: null });
+                      await createGraph({
+                        variables: {
+                          sensorTopic: this.state.sensorTopic,
+                          updateFrequency: parseInt(this.state.updateFrequency),
+                          brewingProcessId: this.state.brewingProcessId,
+                          brewingStepName: this.state.brewingStepName,
+                        },
+                      }).catch((e) => {
+                        this.setState({ queryError: e });
+                      });
+                      if (this.state.queryError == null) {
+                        this.handleClose();
+                      }
+                    }}
+                  >
+                    <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <Query query={ALL_BREWING_PROCESSES_QUERY}>
                           {({ data, error, loading }) => {
@@ -181,7 +161,11 @@ class CreateGraph extends Component {
                               brewingProcesses = data.brewingProcesses;
                             }
                             return (
-                              <FormControl className={classes.formControl}>
+                              <FormControl
+                                className={classes.formControl}
+                                required
+                                fullWidth
+                              >
                                 <InputLabel htmlFor="select-brewingProcess">
                                   Brewing Process
                                 </InputLabel>
@@ -206,7 +190,49 @@ class CreateGraph extends Component {
                         </Query>
                       </Grid>
                       <Grid item xs={12}>
-                        <FormControl className={classes.formControl}>
+                        <Query query={SENSOR_QUERY}>
+                          {({ data, error, loading }) => {
+                            if (loading) return <Loading />;
+                            if (error) return <Error error={error} />;
+                            let sensors = [''];
+                            if (data) {
+                              sensors = data.sensors;
+                            }
+                            return (
+                              <FormControl
+                                className={classes.formControl}
+                                required
+                                fullWidth
+                              >
+                                <InputLabel htmlFor="select-sensor">
+                                  Sensor
+                                </InputLabel>
+                                <Select
+                                  onChange={this.handleNewSensorTopic}
+                                  value={this.state.sensorTopic}
+                                  input={<Input id="select-sensor" />}
+                                  displayEmpty={true}
+                                >
+                                  {sensors.map((sensor) => (
+                                    <MenuItem
+                                      key={sensor.topic}
+                                      value={sensor.topic}
+                                    >
+                                      {sensor.name}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            );
+                          }}
+                        </Query>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <FormControl
+                          className={classes.formControl}
+                          required
+                          fullWidth
+                        >
                           <InputLabel htmlFor="select-brewingStepName">
                             Brewing Step
                           </InputLabel>
@@ -223,57 +249,38 @@ class CreateGraph extends Component {
                           </Select>
                         </FormControl>
                       </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          id="updateFrequency"
-                          name="updateFrequency"
-                          label="Update Frequency"
-                          value={this.state.updateFrequency}
-                          onChange={this.saveToState}
-                          fullWidth
-                        />
-                      </Grid>
                     </Grid>
-                    <div className={classes.buttons}>
-                      <Button
-                        onClick={this.handleClose}
-                        className={classes.button}
-                        color="secondary"
-                        variant="contained"
-                      >
-                        Cancel
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={async () => {
-                          // fire mutation (clear old error)
-                          this.setState({ queryError: null });
-                          await createGraph({
-                            variables: {
-                              sensorTopic: this.state.sensorTopic,
-                              updateFrequency: parseInt(
-                                this.state.updateFrequency
-                              ),
-                              brewingProcessId: this.state.brewingProcessId,
-                              brewingStepName: this.state.brewingStepName,
-                            },
-                          }).catch((e) => {
-                            this.setState({ queryError: e });
-                          });
-                          if (this.state.queryError == null) {
-                            this.handleClose();
-                          }
-                        }}
-                        className={classes.button}
-                        disabled={loading}
-                      >
-                        Create
-                      </Button>
-                    </div>
-                  </Paper>
-                </main>
+                    <FormControl margin="normal" required fullWidth>
+                      <InputLabel htmlFor="updateFrequency">
+                        Update Frequency
+                      </InputLabel>
+                      <Input
+                        id="updateFrequency"
+                        name="updateFrequency"
+                        value={this.state.updateFrequency}
+                        onChange={this.saveToState}
+                        fullWidth
+                      />
+                    </FormControl>
+                    <Button
+                      onClick={this.handleClose}
+                      className={classes.button}
+                      color="secondary"
+                      variant="contained"
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      className={classes.button}
+                      disabled={loading}
+                    >
+                      Create
+                    </Button>
+                  </form>
+                </Paper>
               </DialogContent>
             </Dialog>
           )}
