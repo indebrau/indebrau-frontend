@@ -5,6 +5,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import {
   Drawer,
+  Avatar,
   AppBar,
   Toolbar,
   List,
@@ -13,7 +14,6 @@ import {
   ListItem,
   ListItemText,
   Typography,
-  Button,
   withStyles,
 } from '@material-ui/core';
 
@@ -61,9 +61,6 @@ const styles = (theme) => ({
     flexGrow: 1,
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-  },
-  homeLink: {
-    color: 'inherit',
   },
   drawerPaper: {
     position: 'relative',
@@ -171,8 +168,10 @@ class AdminDashboard extends Component {
                     >
                       Indebrau - Admin Area
                     </Typography>
-                    <Link href="/">
-                      <Button className={classes.homeLink}>Back</Button>
+                    <Link href="/user">
+                      <Avatar className={classes.title}>
+                        {me.name.charAt(0).toUpperCase()}
+                      </Avatar>
                     </Link>
                   </Toolbar>
                 </AppBar>
