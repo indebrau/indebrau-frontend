@@ -26,11 +26,6 @@ import {
 } from '../../lib/queriesAndMutations';
 
 const styles = (theme) => ({
-  layout: {
-    width: 'auto',
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-  },
   paper: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
@@ -56,9 +51,6 @@ const styles = (theme) => ({
   button: {
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
-  },
-  fab: {
-    margin: theme.spacing(1),
   },
 });
 
@@ -113,12 +105,7 @@ class AddUserToBrewingProcess extends Component {
     const { classes } = this.props;
     return (
       <>
-        <Fab
-          color="primary"
-          aria-label="Add"
-          className={classes.fab}
-          onClick={this.handleClickOpen}
-        >
+        <Fab color="primary" aria-label="Add" onClick={this.handleClickOpen}>
           <EditIcon />
         </Fab>
         <Mutation

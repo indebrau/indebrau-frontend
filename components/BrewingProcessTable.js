@@ -39,7 +39,7 @@ class BrewingProcessTable extends Component {
         <TableBody>
           {this.props.brewingProcesses.map((n) => (
             <TableRow key={n.id} hover>
-              <TableCell align="center">
+              <TableCell align="center" onClick={() => this.handleClick(n.id)}>
                 {this.props.adminView && n.id + ':'} {n.name}
               </TableCell>
               <TableCell align="center" onClick={() => this.handleClick(n.id)}>
@@ -48,16 +48,21 @@ class BrewingProcessTable extends Component {
                 {n.end && 'ended'}
               </TableCell>
               {!this.props.adminView && (
-                <TableCell align="center">{n.description}</TableCell>
+                <TableCell
+                  align="center"
+                  onClick={() => this.handleClick(n.id)}
+                >
+                  {n.description}
+                </TableCell>
               )}
               {this.props.adminView && (
                 <TableCell align="center">
-                  <DeleteBrewingProcess brewingProcessId={n.id} />
                   <AdvanceBrewingProcess brewingProcessId={n.id} />
                   <AddUserToBrewingProcess
                     brewingProcessId={n.id}
                     participatingUsers={n.participatingUsers}
                   />
+                  <DeleteBrewingProcess brewingProcessId={n.id} />
                 </TableCell>
               )}
             </TableRow>
