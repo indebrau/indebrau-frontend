@@ -53,8 +53,7 @@ const styles = (theme) => ({
 class CreateBrewingProcess extends Component {
   state = {
     open: false,
-    formatting: 'notyetdone', // check for formatting
-    queryStatus: 'notyetdone', // did query pass?
+    queryError: null, // did query pass?
     name: '',
     description: '',
     startNow: false,
@@ -73,61 +72,13 @@ class CreateBrewingProcess extends Component {
   handleClose = () => {
     this.setState({
       open: false,
-      formatting: 'notyetdone',
-      queryStatus: 'notyetdone',
+      queryError: null,
 
       name: '',
       description: '',
       startNow: false,
     });
   };
-
-  getGridContent() {
-    return (
-      <>
-        <Grid container spacing={8}>
-          <Grid item xs={12}>
-            <TextField
-              required
-              id="name"
-              name="name"
-              label="Name"
-              value={this.state.name}
-              onChange={this.saveToState}
-              fullWidth
-              autoFocus
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              id="description"
-              name="description"
-              label="Description"
-              value={this.state.description}
-              onChange={this.saveToState}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  color="secondary"
-                  id="startNow"
-                  name="startNow"
-                  value="startNow"
-                  checked={this.state.startNow}
-                  onChange={this.saveCheckToState('startNow')}
-                />
-              }
-              label="Start Now"
-            />
-          </Grid>
-        </Grid>
-      </>
-    );
-  }
 
   render() {
     const { classes } = this.props;
@@ -154,8 +105,7 @@ class CreateBrewingProcess extends Component {
               disableBackdropClick
               fullScreen
             >
-              <Error error={this.state.queryStatus} />
-              <Error error={this.state.formatting} />
+              <Error error={this.state.queryError} />
 
               <DialogTitle id="form-dialog-title">
                 Create Brewing Process
@@ -163,52 +113,86 @@ class CreateBrewingProcess extends Component {
 
               <DialogContent>
                 <Paper className={classes.paper}>
-                  {this.getGridContent()}
-                  <Button
-                    onClick={this.handleClose}
-                    className={classes.button}
-                    color="secondary"
-                    variant="contained"
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={async () => {
-                      // prepare variables
-                      try {
-                        let createBrewingProcessVars = {
+                  <form
+                    className={classes.form}
+                    method="post"
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      // fire mutation (clear old error)
+                      this.setState({ queryError: null });
+                      await createBrewingProcess({
+                        variables: {
                           name: this.state.name,
                           description: this.state.description,
                           startNow: this.state.startNow,
-                        };
-                        this.setState({
-                          formatting: 'ok',
-                        });
-                        this.setState({ queryStatus: 'ok' });
-                        await createBrewingProcess({
-                          variables: { ...createBrewingProcessVars },
-                        }).catch((e) => {
-                          this.setState({ queryStatus: e });
-                        });
-                      } catch (exception) {
-                        this.setState({
-                          formatting: exception,
-                        });
-                      }
-                      if (
-                        this.state.formatting === 'ok' &&
-                        this.state.queryStatus === 'ok'
-                      ) {
+                        },
+                      }).catch((e) => {
+                        this.setState({ queryError: e });
+                      });
+
+                      if (this.state.queryError == null) {
                         this.handleClose();
                       }
                     }}
-                    className={classes.button}
-                    disabled={loading}
                   >
-                    Create
-                  </Button>
+                    <Grid container spacing={4}>
+                      <Grid item xs={12}>
+                        <TextField
+                          required
+                          id="name"
+                          name="name"
+                          label="Name"
+                          value={this.state.name}
+                          onChange={this.saveToState}
+                          fullWidth
+                          autoFocus
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          required
+                          id="description"
+                          name="description"
+                          label="Description"
+                          value={this.state.description}
+                          onChange={this.saveToState}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              color="secondary"
+                              id="startNow"
+                              name="startNow"
+                              value="startNow"
+                              checked={this.state.startNow}
+                              onChange={this.saveCheckToState('startNow')}
+                            />
+                          }
+                          label="Start Now"
+                        />
+                      </Grid>
+                    </Grid>
+                    <Button
+                      onClick={this.handleClose}
+                      className={classes.button}
+                      color="secondary"
+                      variant="contained"
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      className={classes.button}
+                      disabled={loading}
+                    >
+                      Create
+                    </Button>
+                  </form>
                 </Paper>
               </DialogContent>
             </Dialog>
