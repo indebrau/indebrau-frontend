@@ -46,7 +46,7 @@ class AllGraphs extends Component {
                 <GraphChart
                   data={activeGraph.graphData}
                   key={activeGraph.id}
-                  sensorTopic={activeGraph.sensor.topic}
+                  sensorName={activeGraph.sensor.name}
                   binary={activeGraph.sensor.binary}
                 />
               ));
