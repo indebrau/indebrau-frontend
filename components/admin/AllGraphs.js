@@ -47,6 +47,7 @@ class AllGraphs extends Component {
                   data={activeGraph.graphData}
                   key={activeGraph.id}
                   sensorTopic={activeGraph.sensor.topic}
+                  binary={activeGraph.sensor.binary}
                 />
               ));
               return (

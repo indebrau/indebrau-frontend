@@ -8,13 +8,13 @@ import YAxis from 'recharts/lib/cartesian/YAxis';
 import CartesianGrid from 'recharts/lib/cartesian/CartesianGrid';
 import Tooltip from 'recharts/lib/component/Tooltip';
 import Legend from 'recharts/lib/component/Legend';
-import { renderDate, parseSensorValue } from '../lib/utils.js';
+import { renderDate } from '../lib/utils.js';
 
 class GraphChart extends Component {
   render() {
     var renderData = this.props.data.map((dataPoint) => ({
       time: renderDate(dataPoint.time),
-      value: parseSensorValue(dataPoint.value),
+      value: dataPoint.value,
     }));
     return (
       <ResponsiveContainer width="99%" height={250}>
@@ -33,7 +33,7 @@ class GraphChart extends Component {
             stroke="#8884d8"
             dot={false}
             activeDot={{ r: 8 }}
-            name={this.props.sensorTopic}
+            name={this.props.sensorName}
           />
         </LineChart>
       </ResponsiveContainer>
@@ -43,7 +43,8 @@ class GraphChart extends Component {
 
 GraphChart.propTypes = {
   data: PropTypes.array.isRequired,
-  sensorTopic: PropTypes.string.isRequired,
+  sensorName: PropTypes.string.isRequired,
+  binary: PropTypes.bool.isRequired,
 };
 
 export default GraphChart;

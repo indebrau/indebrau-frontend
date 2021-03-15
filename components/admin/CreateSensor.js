@@ -4,6 +4,8 @@ import {
   Paper,
   Button,
   FormControl,
+  FormControlLabel,
+  Checkbox,
   InputLabel,
   Input,
   Dialog,
@@ -51,6 +53,7 @@ class CreateSensor extends Component {
     // mutation variables
     sensorTopic: '',
     sensorName: '',
+    binary: false,
   };
 
   handleClose = () => {
@@ -61,11 +64,15 @@ class CreateSensor extends Component {
       // mutation variables
       sensorTopic: '',
       sensorName: '',
+      binary: false,
     });
   };
 
   saveToState = (e) => {
     this.setState({ [e.target.name]: e.target.value });
+  };
+  saveCheckToState = (name) => (event) => {
+    this.setState({ [name]: event.target.checked });
   };
 
   handleClickOpen = () => {
@@ -112,6 +119,7 @@ class CreateSensor extends Component {
                         variables: {
                           topic: this.state.sensorTopic,
                           name: this.state.sensorName,
+                          binary: this.state.binary,
                         },
                       }).catch((e) => {
                         this.setState({ queryError: e });
@@ -143,6 +151,19 @@ class CreateSensor extends Component {
                         autoFocus
                       />
                     </FormControl>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          color="secondary"
+                          id="binary"
+                          name="binary"
+                          value="binary"
+                          checked={this.state.binary}
+                          onChange={this.saveCheckToState('binary')}
+                        />
+                      }
+                      label="Binary"
+                    />
                     <Button
                       onClick={this.handleClose}
                       className={classes.button}

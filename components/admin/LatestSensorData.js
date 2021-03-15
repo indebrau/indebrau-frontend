@@ -25,7 +25,7 @@ const styles = (theme) => ({
   },
 });
 
-class LatestSensorValues extends Component {
+class LatestSensorData extends Component {
   render() {
     const { classes } = this.props;
 
@@ -44,17 +44,21 @@ class LatestSensorValues extends Component {
               if (loading) return <></>;
               if (error) return <Error error={error} />;
               if (data) {
-                const sensorDataTable = data.sensors.map((sensor) => (
-                  <TableRow key={sensor.topic} hover>
-                    <TableCell align="center">{sensor.name}</TableCell>
-                    <TableCell align="center">
-                      {renderDate(sensor.latestTimeStamp)}
-                    </TableCell>
-                    <TableCell align="center">
-                      {parseSensorValue(sensor.latestValue)}
-                    </TableCell>
-                  </TableRow>
-                ));
+                const sensorDataTable = data.sensors.map((sensor) => {
+                  sensor.latestValue = parseSensorValue(
+                    sensor.latestValue,
+                    sensor.binary
+                  );
+                  return (
+                    <TableRow key={sensor.topic} hover>
+                      <TableCell align="center">{sensor.name}</TableCell>
+                      <TableCell align="center">
+                        {renderDate(sensor.latestTimeStamp)}
+                      </TableCell>
+                      <TableCell align="center">{sensor.latestValue}</TableCell>
+                    </TableRow>
+                  );
+                });
                 return <TableBody>{sensorDataTable}</TableBody>;
               }
             }}
@@ -66,8 +70,8 @@ class LatestSensorValues extends Component {
   }
 }
 
-LatestSensorValues.propTypes = {
+LatestSensorData.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(LatestSensorValues);
+export default withStyles(styles)(LatestSensorData);
