@@ -8,13 +8,13 @@ import YAxis from 'recharts/lib/cartesian/YAxis';
 import CartesianGrid from 'recharts/lib/cartesian/CartesianGrid';
 import Tooltip from 'recharts/lib/component/Tooltip';
 import Legend from 'recharts/lib/component/Legend';
-import { renderDate } from '../lib/utils.js';
+import { renderDate, parseSensorValue } from '../lib/utils.js';
 
 class GraphChart extends Component {
   render() {
     var renderData = this.props.data.map((dataPoint) => ({
       time: renderDate(dataPoint.time),
-      value: dataPoint.value,
+      value: parseSensorValue(dataPoint.value, this.props.binary),
     }));
     return (
       <ResponsiveContainer width="99%" height={250}>
