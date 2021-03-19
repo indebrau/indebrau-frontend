@@ -2,7 +2,6 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import { Grid, Typography, withStyles } from '@material-ui/core';
-import ResponsiveContainer from 'recharts/lib/component/ResponsiveContainer';
 import BreweryComponent from './BreweryComponent';
 import GraphChart from './GraphChart';
 import LatestMediaFile from './LatestMediaFile';
@@ -53,14 +52,12 @@ class BrewingProcess extends Component {
               const activeGraphs = [];
               brewingStep.graphs.map((activeGraph) => {
                 activeGraphs.push(
-                  <ResponsiveContainer width="99%" key={activeGraph.id}>
-                    <GraphChart
-                      data={activeGraph.graphData}
-                      key={activeGraph.id}
-                      sensorName={activeGraph.sensor.name}
-                      binary={activeGraph.sensor.binary}
-                    />
-                  </ResponsiveContainer>
+                  <GraphChart
+                    data={activeGraph.graphData}
+                    key={activeGraph.id}
+                    sensorName={activeGraph.sensor.name}
+                    binary={activeGraph.sensor.binary}
+                  />
                 );
               });
               const activeStreams = [];
