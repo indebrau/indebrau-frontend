@@ -9,9 +9,29 @@ const styles = (theme) => ({
     padding: theme.spacing(2),
     maxHeight: '100%',
   },
-  imageWrap: {
+  imageRow: {
     display: 'flex',
     justifyContent: 'center',
+    padding: theme.spacing(2),
+  },
+  imageColumn: {
+    padding: theme.spacing(2),
+    float: 'left',
+    width: '33%',
+  },
+  footer: {
+    [theme.breakpoints.up(1100 + theme.spacing(2))]: {
+      width: 1100,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    left: 0,
+    right: 0,
+    textAlign: 'center',
+    position: 'fixed',
+    bottom: 15,
   },
 });
 
@@ -32,12 +52,23 @@ class Home extends Component {
         <Typography variant="subtitle1" gutterBottom>
           A beer as smooth as its river!
         </Typography>
-        <br />
-        <a href="https://untappd.com/Indebrau?ref=followbtn">
-          <div className={classes.imageWrap}>
-            <Image src="/untappd/banner.png" width={380} height={100} />
+        <div className={classes.footer}>
+          <div className={classes.imageColumn}>
+            <a href="https://untappd.com/Indebrau?ref=followbtn">
+              <Image src="/logos/untappd.png" width={60} height={60} />
+            </a>
           </div>
-        </a>
+          <div className={classes.imageColumn}>
+            <a href="https://www.instagram.com/indebrau/">
+              <Image src="/logos/instagram.png" width={60} height={60} />
+            </a>
+          </div>
+          <div className={classes.imageColumn}>
+            <a href="https://github.com/indebrau/">
+              <Image src="/logos/github.png" width={60} height={60} />
+            </a>
+          </div>
+        </div>
       </div>
     );
   }
