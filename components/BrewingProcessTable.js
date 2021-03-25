@@ -8,9 +8,8 @@ import {
   TableHead,
   TableRow,
 } from '@material-ui/core';
-import DeleteBrewingProcess from './admin/DeleteBrewingProcess';
-import AdvanceBrewingProcess from './admin/AdvanceBrewingProcess';
-import AddUserToBrewingProcess from './admin/AddUserToBrewingProcess';
+import BrewingProcessAdminRow from './admin/BrewingProcessAdminRow';
+import { renderDate } from '../lib/utils';
 
 class BrewingProcessTable extends Component {
   handleClick = (id) => {
@@ -29,44 +28,51 @@ class BrewingProcessTable extends Component {
         <TableHead>
           <TableRow>
             <TableCell align="center">Name</TableCell>
-            <TableCell align="center">Step</TableCell>
-            {!this.props.adminView && (
-              <TableCell align="center">Description</TableCell>
+            {!this.props.adminView && !this.props.bottlesView && (
+              <TableCell align="center">Started</TableCell>
             )}
+            {this.props.bottlesView && (
+              <TableCell align="center">Bottled</TableCell>
+            )}
+            <TableCell align="center">
+              {!this.props.bottlesView && 'Status'}
+              {this.props.bottlesView && 'Available Bottles'}
+            </TableCell>
             {this.props.adminView && <TableCell align="center" />}
           </TableRow>
         </TableHead>
         <TableBody>
-          {this.props.brewingProcesses.map((n) => (
-            <TableRow key={n.id} hover>
-              <TableCell align="center" onClick={() => this.handleClick(n.id)}>
-                {this.props.adminView && n.id + ':'} {n.name}
-              </TableCell>
-              <TableCell align="center" onClick={() => this.handleClick(n.id)}>
-                {n.brewingSteps[0] && n.brewingSteps[0].name}
-                {!n.start && 'inactive'}
-                {n.end && 'ended'}
-              </TableCell>
-              {!this.props.adminView && (
-                <TableCell
-                  align="center"
-                  onClick={() => this.handleClick(n.id)}
-                >
-                  {n.description}
-                </TableCell>
-              )}
-              {this.props.adminView && (
+          {!this.props.adminView &&
+            this.props.brewingProcesses.map((n) => (
+              <TableRow
+                key={n.id}
+                hover
+                onClick={() => {
+                  !this.props.bottlesView && this.handleClick(n.id);
+                }}
+              >
+                <TableCell align="center">{n.name}</TableCell>
                 <TableCell align="center">
-                  <AdvanceBrewingProcess brewingProcessId={n.id} />
-                  <AddUserToBrewingProcess
-                    brewingProcessId={n.id}
-                    participatingUsers={n.participatingUsers}
-                  />
-                  <DeleteBrewingProcess brewingProcessId={n.id} />
+                  {!this.props.bottlesView && renderDate(n.start)}
+                  {this.props.bottlesView && renderDate(n.end)}
                 </TableCell>
-              )}
-            </TableRow>
-          ))}
+                <TableCell align="center">
+                  {!n.end &&
+                    n.brewingSteps[0] &&
+                    renderDate(n.brewingSteps[0].start) +
+                    ' ' +
+                    n.brewingSteps[0].name}
+                  {!n.start && 'inactive'}
+                  {n.end && !this.props.bottlesView && 'Ended'}
+                  {n.end && this.props.bottlesView && (n.bottlesAvailable || 0)}
+                </TableCell>
+              </TableRow>
+            ))}
+          {this.props.adminView &&
+            !this.props.bottlesView &&
+            this.props.brewingProcesses.map((n) => (
+              <BrewingProcessAdminRow key={n.id} brewingProcess={n} />
+            ))}
         </TableBody>
       </Table>
     );
@@ -76,6 +82,7 @@ class BrewingProcessTable extends Component {
 BrewingProcessTable.propTypes = {
   brewingProcesses: PropTypes.array.isRequired,
   adminView: PropTypes.bool.isRequired,
+  bottlesView: PropTypes.bool.isRequired,
 };
 
 export default BrewingProcessTable;

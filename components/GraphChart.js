@@ -10,7 +10,7 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
-import { renderDate, parseSensorValue } from '../lib/utils.js';
+import { renderDate, parseSensorValue } from '../lib/utils';
 
 class GraphChart extends Component {
   render() {

@@ -5,7 +5,7 @@ import { Query } from 'react-apollo';
 import { LATEST_MEDIA_STREAM_FILE_QUERY } from '../lib/queriesAndMutations';
 import Loading from './Loading';
 import Error from './Error';
-import { renderDate } from '../lib/utils.js';
+import { renderDate } from '../lib/utils';
 
 const styles = (theme) => ({
   root: {
@@ -51,7 +51,7 @@ class LatestMediaFile extends Component {
                       className={classes.image}
                     />
                     <Typography variant="body2">
-                      {data.mediaStream.id}
+                      {data.mediaStream.mediaFilesName}
                     </Typography>
                     <Typography variant="body2">
                       Last Update:
@@ -62,7 +62,7 @@ class LatestMediaFile extends Component {
               } else {
                 return (
                   <Typography variant="body2">
-                    {data.mediaStream.id}: No Image
+                    {data.mediaStream.mediaFilesName}: No Image
                   </Typography>
                 );
               }

@@ -35,6 +35,7 @@ class AllBrewingProcesses extends Component {
               <BrewingProcessTable
                 brewingProcesses={data.brewingProcesses}
                 adminView={true}
+                bottlesView={false}
               />
               <CreateBrewingProcess className={classes.root} />
             </Paper>

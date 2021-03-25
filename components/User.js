@@ -6,7 +6,12 @@ import Link from './Link';
 import BrewingProcessTable from './BrewingProcessTable';
 import SignIn from './SignIn';
 import SignOut from './SignOut';
-import { CURRENT_USER_QUERY } from '../lib/queriesAndMutations';
+import {
+  CURRENT_USER_QUERY,
+  FINISHED_BREWING_PROCESSES_QUERY,
+} from '../lib/queriesAndMutations';
+import Loading from './Loading';
+import Error from './Error';
 
 const styles = (theme) => ({
   root: {
@@ -44,13 +49,37 @@ class User extends Component {
                     <Typography variant="h5" gutterBottom>
                       Hello {me.name}
                     </Typography>
+                    {me.participatingBrewingProcesses.length > 0 && (
+                      <>
+                        <Typography variant="subtitle1" gutterBottom>
+                          Your Brewing Processes
+                        </Typography>
+                        <BrewingProcessTable
+                          brewingProcesses={me.participatingBrewingProcesses}
+                          adminView={false}
+                          bottlesView={false}
+                        />
+                        <br />
+                      </>
+                    )}
                     <Typography variant="subtitle1" gutterBottom>
-                      Your Brewing Processes
+                      Current Stash
                     </Typography>
-                    <BrewingProcessTable
-                      brewingProcesses={me.participatingBrewingProcesses}
-                      adminView={false}
-                    />
+                    <Query query={FINISHED_BREWING_PROCESSES_QUERY}>
+                      {({ data, error, loading }) => {
+                        if (loading) return <Loading />;
+                        if (error) return <Error error={error} />;
+                        if (data) {
+                          return (
+                            <BrewingProcessTable
+                              brewingProcesses={data.brewingProcesses}
+                              adminView={false}
+                              bottlesView={true}
+                            />
+                          );
+                        }
+                      }}
+                    </Query>
                     <br />
                     {me && me.permissions.includes('ADMIN') && (
                       <Link href="/adminDashboard">

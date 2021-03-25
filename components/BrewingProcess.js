@@ -5,6 +5,7 @@ import { Grid, Typography, withStyles } from '@material-ui/core';
 import BreweryComponent from './BreweryComponent';
 import GraphChart from './GraphChart';
 import LatestMediaFile from './LatestMediaFile';
+import { renderDate } from '../lib/utils';
 
 import Loading from './Loading';
 import Error from './Error';
@@ -36,7 +37,8 @@ class BrewingProcess extends Component {
               if (brewingProcess.end) {
                 return (
                   <Typography variant="h5" gutterBottom>
-                    {brewingProcess.name} has ended!
+                    {brewingProcess.name} has ended on{' '}
+                    {renderDate(brewingProcess.end)}
                   </Typography>
                 );
               }

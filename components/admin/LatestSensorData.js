@@ -11,7 +11,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { SENSOR_QUERY } from '../../lib/queriesAndMutations';
-import { renderDate, parseSensorValue } from '../../lib/utils.js';
+import { renderDate, parseSensorValue } from '../../lib/utils';
 import Error from '../Error';
 import CreateSensor from './CreateSensor';
 
