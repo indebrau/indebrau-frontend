@@ -31,12 +31,10 @@ import {
 } from '../../lib/queriesAndMutations';
 
 const styles = (theme) => ({
-  layout: {
+  paper: {
     width: 'auto',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
-  },
-  paper: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
@@ -46,24 +44,12 @@ const styles = (theme) => ({
       padding: theme.spacing(3),
     },
   },
-  buttons: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
   button: {
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
   },
   fab: {
     margin: theme.spacing(1),
-  },
-  chips: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'flex-end',
-  },
-  chip: {
-    margin: theme.spacing(1) / 4,
   },
 });
 
@@ -148,47 +134,31 @@ class CreateMediaStream extends Component {
               </DialogTitle>
 
               <DialogContent>
-                <main className={classes.layout}>
-                  <Paper className={classes.paper}>
-                    <Grid container spacing={8}>
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          id="mediaFilesName"
-                          name="mediaFilesName"
-                          label="Media Files Name"
-                          value={this.state.mediaFilesName}
-                          onChange={this.saveToState}
-                          fullWidth
-                          autoFocus
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          required
-                          id="updateFrequency"
-                          name="updateFrequency"
-                          label="Update Frequency"
-                          value={this.state.updateFrequency}
-                          onChange={this.saveToState}
-                          fullWidth
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              color="secondary"
-                              id="overwrite"
-                              name="overwrite"
-                              value="overwrite"
-                              checked={this.state.overwrite}
-                              onChange={this.saveCheckToState('overwrite')}
-                            />
-                          }
-                          label="Overwrite"
-                        />
-                      </Grid>
+                <Paper className={classes.paper}>
+                  <form
+                    className={classes.form}
+                    method="post"
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      // fire mutation (clear old error)
+                      this.setState({ queryError: null });
+                      await createMediaStream({
+                        variables: {
+                          mediaFilesName: this.state.mediaFilesName,
+                          overwrite: this.state.overwrite,
+                          updateFrequency: parseInt(this.state.updateFrequency),
+                          brewingProcessId: this.state.brewingProcessId,
+                          brewingStepName: this.state.brewingStepName,
+                        },
+                      }).catch((e) => {
+                        this.setState({ queryError: e });
+                      });
+                      if (this.state.queryError == null) {
+                        this.handleClose();
+                      }
+                    }}
+                  >
+                    <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <Query query={ALL_BREWING_PROCESSES_QUERY}>
                           {({ data, error, loading }) => {
@@ -199,7 +169,11 @@ class CreateMediaStream extends Component {
                               brewingProcesses = data.brewingProcesses;
                             }
                             return (
-                              <FormControl className={classes.formControl}>
+                              <FormControl
+                                className={classes.formControl}
+                                required
+                                fullWidth
+                              >
                                 <InputLabel htmlFor="select-brewingProcess">
                                   Brewing Process
                                 </InputLabel>
@@ -223,63 +197,87 @@ class CreateMediaStream extends Component {
                           }}
                         </Query>
                       </Grid>
-                    </Grid>
-                    <FormControl className={classes.formControl}>
-                      <InputLabel htmlFor="select-brewingStepName">
-                        Brewing Step
-                      </InputLabel>
-                      <Select
-                        onChange={this.handleNewBrewingStepName}
-                        value={this.state.brewingStepName}
-                        input={<Input id="select-brewingStepName" />}
-                      >
-                        {STEPS.map((step) => (
-                          <MenuItem key={step} value={step}>
-                            {step}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                    <div className={classes.buttons}>
-                      <Button
-                        onClick={this.handleClose}
-                        className={classes.button}
-                        color="secondary"
-                        variant="contained"
-                      >
-                        Cancel
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={async () => {
-                          // fire mutation (clear old error)
-                          this.setState({ queryError: null });
-                          await createMediaStream({
-                            variables: {
-                              mediaFilesName: this.state.mediaFilesName,
-                              overwrite: this.state.overwrite,
-                              updateFrequency: parseInt(
-                                this.state.updateFrequency
-                              ),
-                              brewingProcessId: this.state.brewingProcessId,
-                              brewingStepName: this.state.brewingStepName,
-                            },
-                          }).catch((e) => {
-                            this.setState({ queryError: e });
-                          });
-                          if (this.state.queryError == null) {
-                            this.handleClose();
+                      <Grid item xs={12}>
+                        <FormControl
+                          className={classes.formControl}
+                          required
+                          fullWidth
+                        >
+                          <InputLabel htmlFor="select-brewingStepName">
+                            Brewing Step
+                          </InputLabel>
+                          <Select
+                            onChange={this.handleNewBrewingStepName}
+                            value={this.state.brewingStepName}
+                            input={<Input id="select-brewingStepName" />}
+                          >
+                            {STEPS.map((step) => (
+                              <MenuItem key={step} value={step}>
+                                {step}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          required
+                          id="mediaFilesName"
+                          name="mediaFilesName"
+                          label="Media Files Name"
+                          value={this.state.mediaFilesName}
+                          onChange={this.saveToState}
+                          fullWidth
+                          autoFocus
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          required
+                          type="number"
+                          id="updateFrequency"
+                          name="updateFrequency"
+                          label="Update Frequency"
+                          value={this.state.updateFrequency}
+                          onChange={this.saveToState}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              color="secondary"
+                              id="overwrite"
+                              name="overwrite"
+                              value="overwrite"
+                              checked={this.state.overwrite}
+                              onChange={this.saveCheckToState('overwrite')}
+                            />
                           }
-                        }}
-                        className={classes.button}
-                        disabled={loading}
-                      >
-                        Create
-                      </Button>
-                    </div>
-                  </Paper>
-                </main>
+                          label="Overwrite"
+                        />
+                      </Grid>
+                    </Grid>
+                    <Button
+                      onClick={this.handleClose}
+                      className={classes.button}
+                      color="secondary"
+                      variant="contained"
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      className={classes.button}
+                      disabled={loading}
+                    >
+                      Create
+                    </Button>
+                  </form>
+                </Paper>
               </DialogContent>
             </Dialog>
           )}

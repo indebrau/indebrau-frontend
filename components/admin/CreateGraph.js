@@ -190,44 +190,6 @@ class CreateGraph extends Component {
                         </Query>
                       </Grid>
                       <Grid item xs={12}>
-                        <Query query={SENSOR_QUERY}>
-                          {({ data, error, loading }) => {
-                            if (loading) return <Loading />;
-                            if (error) return <Error error={error} />;
-                            let sensors = [''];
-                            if (data) {
-                              sensors = data.sensors;
-                            }
-                            return (
-                              <FormControl
-                                className={classes.formControl}
-                                required
-                                fullWidth
-                              >
-                                <InputLabel htmlFor="select-sensor">
-                                  Sensor
-                                </InputLabel>
-                                <Select
-                                  onChange={this.handleNewSensorTopic}
-                                  value={this.state.sensorTopic}
-                                  input={<Input id="select-sensor" />}
-                                  displayEmpty={true}
-                                >
-                                  {sensors.map((sensor) => (
-                                    <MenuItem
-                                      key={sensor.topic}
-                                      value={sensor.topic}
-                                    >
-                                      {sensor.name}
-                                    </MenuItem>
-                                  ))}
-                                </Select>
-                              </FormControl>
-                            );
-                          }}
-                        </Query>
-                      </Grid>
-                      <Grid item xs={12}>
                         <FormControl
                           className={classes.formControl}
                           required
@@ -250,6 +212,44 @@ class CreateGraph extends Component {
                         </FormControl>
                       </Grid>
                     </Grid>
+                    <Grid item xs={12}>
+                      <Query query={SENSOR_QUERY}>
+                        {({ data, error, loading }) => {
+                          if (loading) return <Loading />;
+                          if (error) return <Error error={error} />;
+                          let sensors = [''];
+                          if (data) {
+                            sensors = data.sensors;
+                          }
+                          return (
+                            <FormControl
+                              className={classes.formControl}
+                              required
+                              fullWidth
+                            >
+                              <InputLabel htmlFor="select-sensor">
+                                Sensor
+                              </InputLabel>
+                              <Select
+                                onChange={this.handleNewSensorTopic}
+                                value={this.state.sensorTopic}
+                                input={<Input id="select-sensor" />}
+                                displayEmpty={true}
+                              >
+                                {sensors.map((sensor) => (
+                                  <MenuItem
+                                    key={sensor.topic}
+                                    value={sensor.topic}
+                                  >
+                                    {sensor.name}
+                                  </MenuItem>
+                                ))}
+                              </Select>
+                            </FormControl>
+                          );
+                        }}
+                      </Query>
+                    </Grid>
                     <FormControl margin="normal" required fullWidth>
                       <InputLabel htmlFor="updateFrequency">
                         Update Frequency
@@ -257,6 +257,7 @@ class CreateGraph extends Component {
                       <Input
                         id="updateFrequency"
                         name="updateFrequency"
+                        type="number"
                         value={this.state.updateFrequency}
                         onChange={this.saveToState}
                         fullWidth
