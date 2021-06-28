@@ -82,13 +82,13 @@ export default function Beers() {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image="../schwarzbier.png"
+                image="../schwarzbier.jpg"
                 title="ESB - Eschweiler Schwarzbier"
               />
               <CardContent>
                 <Typography gutterBottom variant="body1" component="h2">
                   Eschweiler Schwarzbier{' '}
-                  <a href="">
+                  <a href="https://untappd.com/b/indebrau-eschweiler-schwarzbier/4212079">
                     <img
                       src="../logos/untappd.png"
                       className={classes.untappd}
