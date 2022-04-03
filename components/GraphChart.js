@@ -25,7 +25,7 @@ class GraphChart extends Component {
           margin={{ top: 5, right: 5, left: -15, bottom: 5 }}
         >
           <XAxis dataKey="time" interval="preserveStartEnd" />
-          <YAxis dataKey="value" />
+          <YAxis dataKey="value" domain={[0, dataMax => (Math.ceil(dataMax) + 1)]} />
           <CartesianGrid vertical={false} strokeDasharray="3 3" />
           <Tooltip isAnimationActive={false} />
           <Legend />
