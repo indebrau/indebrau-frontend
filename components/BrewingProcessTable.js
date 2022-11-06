@@ -44,6 +44,8 @@ class BrewingProcessTable extends Component {
         <TableBody>
           {!this.props.adminView &&
             this.props.brewingProcesses.map((n) => (
+              // don't show ended processes in upper table
+              (!n.end || this.props.bottlesView) &&
               <TableRow
                 key={n.id}
                 hover
@@ -67,6 +69,7 @@ class BrewingProcessTable extends Component {
                   {n.end && this.props.bottlesView && (n.bottlesAvailable || 0)}
                 </TableCell>
               </TableRow>
+
             ))}
           {this.props.adminView &&
             !this.props.bottlesView &&
