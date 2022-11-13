@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 import {
   Paper,
   Table,
@@ -45,7 +45,7 @@ class LatestSensorData extends Component {
               if (error) return <Error error={error} />;
               if (data) {
                 const sensorDataTable = data.sensors.map((sensor) => {
-                  sensor.latestValue = parseSensorValue(
+                  let parsedValue = parseSensorValue(
                     sensor.latestValue,
                     sensor.binary
                   );
@@ -55,7 +55,7 @@ class LatestSensorData extends Component {
                       <TableCell align="center">
                         {renderDate(sensor.latestTimeStamp)}
                       </TableCell>
-                      <TableCell align="center">{sensor.latestValue}</TableCell>
+                      <TableCell align="center">{parsedValue}</TableCell>
                     </TableRow>
                   );
                 });

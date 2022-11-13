@@ -8,7 +8,7 @@ import {
   Fab,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Mutation } from 'react-apollo';
+import { Mutation } from '@apollo/client/react/components';
 import Error from '../Error';
 import {
   ALL_BREWING_PROCESSES_QUERY,

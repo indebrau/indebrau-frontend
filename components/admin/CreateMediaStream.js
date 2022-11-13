@@ -19,7 +19,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { Query, Mutation } from 'react-apollo';
+import { Query, Mutation } from '@apollo/client/react/components';
 import STEPS from '../../lib/brewingSteps';
 import Error from '../Error';
 import Loading from '../Loading';
@@ -125,7 +125,6 @@ class CreateMediaStream extends Component {
               open={this.state.open}
               onClose={this.handleClose}
               aria-labelledby="form-dialog-title"
-              disableBackdropClick
               fullScreen
             >
               <Error error={this.state.queryError} />

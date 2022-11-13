@@ -17,7 +17,7 @@ import {
   TableRow,
   TableCell,
 } from '@material-ui/core';
-import { Query, Mutation } from 'react-apollo';
+import { Query, Mutation } from '@apollo/client/react/components';
 import Error from '../Error';
 import Loading from '../Loading';
 import DeleteBrewingProcess from './DeleteBrewingProcess';
@@ -144,7 +144,6 @@ class BrewingProcessAdminRow extends Component {
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
-          disableBackdropClick
           fullScreen
         >
           <DialogTitle id="form-dialog-title">Edit Brewing Process</DialogTitle>

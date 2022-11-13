@@ -14,7 +14,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { Mutation } from 'react-apollo';
+import { Mutation } from '@apollo/client/react/components';
 import Error from '../Error';
 import {
   CREATE_BREWING_PROCESS_MUTATION,
@@ -102,7 +102,6 @@ class CreateBrewingProcess extends Component {
               open={this.state.open}
               onClose={this.handleClose}
               aria-labelledby="form-dialog-title"
-              disableBackdropClick
               fullScreen
             >
               <Error error={this.state.queryError} />

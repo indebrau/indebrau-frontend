@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Mutation } from 'react-apollo';
+import { Mutation } from '@apollo/client/react/components';
 import { Button } from '@material-ui/core';
 import {
   CURRENT_USER_QUERY,

@@ -30,7 +30,7 @@ export default function Beers() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={1} justify="center">
+      <Grid container spacing={1} justifyContent="center">
         <Grid item>
           <Card className={classes.card}>
             <CardActionArea>

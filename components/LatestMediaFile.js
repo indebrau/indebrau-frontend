@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Paper, withStyles, Typography } from '@material-ui/core';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 import { LATEST_MEDIA_STREAM_FILE_QUERY } from '../lib/queriesAndMutations';
 import Loading from './Loading';
 import Error from './Error';

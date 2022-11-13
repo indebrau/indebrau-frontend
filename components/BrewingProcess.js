@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 import { Grid, Typography, withStyles } from '@material-ui/core';
 import BreweryComponent from './BreweryComponent';
 import GraphChart from './GraphChart';
@@ -80,7 +80,7 @@ class BrewingProcess extends Component {
                   <Typography variant="h5" gutterBottom>
                     {brewingProcess.name}
                   </Typography>
-                  <Grid container spacing={1} justify="center">
+                  <Grid container spacing={1} justifyContent="center">
                     <Grid item>
                       {name == 'PREPARING' && (
                         <BreweryComponent type="GrainMill" />
@@ -126,7 +126,7 @@ class BrewingProcess extends Component {
                       {name == 'BOTTLING' && <BreweryComponent type="Bottle" />}
                     </Grid>
                   </Grid>
-                  <Grid container spacing={1} justify="center">
+                  <Grid container spacing={1} justifyContent="center">
                     {activeGraphs}
                     {activeStreams}
                   </Grid>

@@ -18,7 +18,7 @@ class Brewery extends Component {
         <Typography variant="subtitle1" gutterBottom>
           The Brewery
         </Typography>
-        <Grid container spacing={1} justify="center">
+        <Grid container spacing={1} justifyContent="center">
           <Grid item>
             <BreweryComponent type="GrainMill" />
           </Grid>

@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Mutation } from 'react-apollo';
+import { Mutation } from '@apollo/client/react/components';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {
   Avatar,
@@ -86,7 +86,7 @@ class SignIn extends Component {
                 method="post"
                 onSubmit={async (e) => {
                   e.preventDefault();
-                  await signin().catch(() => {});
+                  await signin().catch(() => { });
                   this.setState({ email: '', password: '' });
                 }}
               >

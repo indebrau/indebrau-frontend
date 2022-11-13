@@ -2,9 +2,9 @@ import React from 'react';
 import App from 'next/app';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from '@apollo/client';
 import Page from '../components/Page';
-import withData from '../lib/withData';
+import apolloClient from '../lib/apolloClient';
 import theme from '../lib/theme';
 import Head from 'next/head';
 
@@ -18,7 +18,7 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, apollo, pageProps } = this.props;
+    const { Component, pageProps } = this.props;
     return (
       <>
         <Head>
@@ -28,7 +28,7 @@ class MyApp extends App {
           />
         </Head>
         <ThemeProvider theme={theme}>
-          <ApolloProvider client={apollo}>
+          <ApolloProvider client={apolloClient}>
             <CssBaseline />
             <Page>
               <Component {...pageProps} />
@@ -40,4 +40,4 @@ class MyApp extends App {
   }
 }
 
-export default withData(MyApp);
+export default MyApp;

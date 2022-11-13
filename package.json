@@ -1,6 +1,6 @@
 {
   "name": "indebrau-frontend",
-  "version": "0.2.0",
+  "version": "1.1.0",
   "description": "The frontend of indebrau",
   "repository": "https://github.com/indebrau/indebrau-frontend",
   "scripts": {
@@ -11,35 +11,32 @@
     "lint": "eslint --fix . && echo 'Lint complete.'"
   },
   "engines": {
-    "node": "~12.19.0",
-    "npm": "~6.14.8"
+    "node": "~v18.12.1",
+    "npm": "~8.19.2"
   },
   "dependencies": {
-    "@material-ui/core": "4.11.3",
-    "@material-ui/icons": "4.11.2",
-    "@material-ui/styles": "4.11.3",
-    "apollo-boost": "0.4.9",
-    "apollo-client": "2.6.10",
-    "dotenv": "8.2.0",
-    "graphql": "15.5.0",
-    "next": "10.0.9",
-    "next-with-apollo": "5.1.1",
-    "prop-types": "15.7.2",
+    "@apollo/client": "3.7.1",
+    "@material-ui/core": "4.12.4",
+    "@material-ui/icons": "4.11.3",
+    "@material-ui/styles": "4.11.5",
+    "dotenv": "16.0.3",
+    "graphql-tag": "2.12.6",
+    "next": "12.3.3",
+    "prop-types": "15.8.1",
     "react": "17.0.2",
-    "react-apollo": "3.1.5",
     "react-dom": "17.0.2",
-    "recharts": "2.1.9"
+    "recharts": "2.1.16"
   },
   "devDependencies": {
-    "babel-eslint": "10.1.0",
-    "eslint": "7.22.0",
-    "eslint-plugin-import": "2.22.1",
-    "eslint-plugin-jsx-a11y": "6.4.1",
-    "eslint-plugin-react": "7.23.1",
-    "eslint-plugin-react-hooks": "4.2.0",
-    "eslint-config-prettier": "8.1.0",
-    "eslint-plugin-prettier": "3.3.1",
-    "prettier": "2.2.1"
+    "@babel/eslint-parser": "7.19.1",
+    "eslint": "8.27.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-jsx-a11y": "6.6.1",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-react": "7.31.10",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "prettier": "2.7.1"
   },
   "author": "Peter de Lange",
   "license": "ISC"

@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 import { Paper, Typography, withStyles } from '@material-ui/core';
 import {
   ALL_GRAPHS_QUERY,
