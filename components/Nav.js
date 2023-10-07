@@ -52,8 +52,8 @@ class Nav extends Component {
                 <Link href="/beers">
                   <Button>Our Beer</Button>
                 </Link>
-                <Link href="/brewery">
-                  <Button>Our Brewery</Button>
+                <Link href="https://shop.indebrau.de">
+                  <Button>Shop</Button>
                 </Link>
                 <Typography
                   component="h2"
