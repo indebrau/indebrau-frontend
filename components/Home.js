@@ -44,13 +44,13 @@ class Home extends Component {
           Indebrau
         </Typography>
         <Typography variant="h5" gutterBottom>
-          Beer from Eschweiler
+          Das Bier von Eschweiler
         </Typography>
         <div className={classes.imageWrap}>
           <Image src="/logo.png" width={882} height={617} />
         </div>
         <Typography variant="subtitle1" gutterBottom>
-          A beer as smooth as its river!
+          Gebraut an der Inde!
         </Typography>
         <div className={classes.footer}>
           <div className={classes.imageColumn}>

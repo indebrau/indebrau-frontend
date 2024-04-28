@@ -49,11 +49,11 @@ class Nav extends Component {
                 <Link href="/">
                   <Button>Home</Button>
                 </Link>
-                <Link href="/beers">
-                  <Button>Our Beer</Button>
+                <Link href="https://shop.indebrau.de/ueber-indebrau/">
+                  <Button>Über Indebrau</Button>
                 </Link>
                 <Link href="https://shop.indebrau.de">
-                  <Button>Shop</Button>
+                  <Button>Bestellen</Button>
                 </Link>
                 <Typography
                   component="h2"
@@ -64,7 +64,7 @@ class Nav extends Component {
                   className={classes.toolbarTitle}
                 />
                 <Link href="/user">
-                  {!me && <Button>Sign In</Button>}
+                  {!me && <Button>Anmelden</Button>}
                   {me && <Avatar>{me.name.charAt(0).toUpperCase()}</Avatar>}
                 </Link>
               </Toolbar>
